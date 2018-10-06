@@ -24,7 +24,15 @@ class Deduction:
         left = reduce(lambda a, f: And(a, f), self.left)
         right = reduce(lambda a, f: Or(a, f), self.right)
         return Then(left, right)
-        
+    def generadorAtomos(self):
+        expresion = self.__str__()
+        #filter(lambda x : if x.isalpha(): yield x, expresion)
+        for n in expresion:
+            if n.isalpha(): yield n
+        #     yield n
+        # yield "=>"
+        # for n in self.right:
+        #     yield n
 if __name__ == "__main__":
     print("*** Testing Deductions ***")
     t = TRUE
@@ -36,8 +44,17 @@ if __name__ == "__main__":
     b = Or(a, na)
     c = Then(p, b)
     ded = Deduction([a, b], [na, c])
+    generador = ded.generadorAtomos()
+    print(next(generador));
+    print(next(generador));
+    print(next(generador));
+    print(next(generador));
+    print(next(generador));
+    print(next(generador));
+    print(next(generador));
+    print(next(generador));
+    print(next(generador));
     print(ded)
     print(ded.to_formula())
     ded2 = Deduction([p, q, p], [q, Not(q)])
     print(ded2, ded2.to_formula())
-    

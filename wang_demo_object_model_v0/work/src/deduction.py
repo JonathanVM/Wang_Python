@@ -29,10 +29,6 @@ class Deduction:
         #filter(lambda x : if x.isalpha(): yield x, expresion)
         for n in expresion:
             if n.isalpha(): yield n
-        #     yield n
-        # yield "=>"
-        # for n in self.right:
-        #     yield n
 if __name__ == "__main__":
     print("*** Testing Deductions ***")
     t = TRUE
@@ -45,15 +41,14 @@ if __name__ == "__main__":
     c = Then(p, b)
     ded = Deduction([a, b], [na, c])
     generador = ded.generadorAtomos()
-    print(next(generador));
-    print(next(generador));
-    print(next(generador));
-    print(next(generador));
-    print(next(generador));
-    print(next(generador));
-    print(next(generador));
-    print(next(generador));
-    print(next(generador));
+    expresion = ded.__str__();
+    while True:
+        try:
+            print(next(generador))
+        except StopIteration:
+            break;
+
+
     print(ded)
     print(ded.to_formula())
     ded2 = Deduction([p, q, p], [q, Not(q)])

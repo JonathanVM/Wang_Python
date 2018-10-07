@@ -1,0 +1,18 @@
+
+{% extends "base.html"%}
+
+{% block title %} {{ title }}{% endblock title %}
+
+{% block content %}
+<!--
+    <h1> prueba1 </h1>
+-->
+    {% autoescape off %}
+    {{ content }}
+    {% endautoescape %}
+    
+<p>
+Last Update: {{ last_updated }}
+</p>
+{% endblock content %}
+

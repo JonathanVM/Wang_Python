@@ -42,12 +42,16 @@ if __name__ == "__main__":
     ded = Deduction([a, b], [na, c])
     generador = ded.generadorAtomos()
     expresion = ded.__str__();
-    while True:
+    list = list(generador)
+    print(list)
+    print("La formula tiene", len(list)," elementos")
+
+    """while True:
         try:
             print(next(generador))
         except StopIteration:
             break;
-
+ """
 
     print(ded)
     print(ded.to_formula())

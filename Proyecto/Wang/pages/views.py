@@ -11,6 +11,7 @@ def index(request, pagename):
     #return HttpResponse("<h1>Hola</h1>")
     #return render(request, "base.html")
     #return render(request, "pages/page.html")
+    print(f"index recibe {pagename}")
     pagename = "/" + pagename
     the_page = Page.objects.get(permalink=pagename)
     context = {
@@ -22,6 +23,8 @@ def index(request, pagename):
     return render(request, "pages/page.html", context)
     
 def expresion(request):
+    #print(f"expression recibe request")
+    #return HttpResponse("<h1>Yaho!!</h1>")
     submitted = False
     if request.method == 'POST':
         form = ProbarForm(request.POST)
@@ -32,16 +35,17 @@ def expresion(request):
                 cd['cadena'],
                 connection=con
             )
-        else:
-            form = ProbarForm()
-            if 'submitted' in request.GET:
-                submitted = True
+    else:
+        form = ProbarForm()
+        if 'submitted' in request.GET:
+            submitted = True
+    return render(request,
+                'pages/consulta.html',
+                {'form': form,
+                'page_list': Page.objects.all(),
+                'submitted': submitted})
     
-        return render(request,
-                      'pages/consulta.html',
-                      {'form': form,
-                      'page_list': Page.objects.all(),
-                      'submitted': submitted})
+        
     
     
     

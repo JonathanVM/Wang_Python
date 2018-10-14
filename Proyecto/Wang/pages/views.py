@@ -29,12 +29,21 @@ def expresion(request):
     if request.method == 'POST':
         form = ProbarForm(request.POST)
         if form.is_valid():
-            cd = form.cleaned_data
-            con = get_connection('django.core.mail.backends.console.EmailBackend')
-            send_mail(
-                cd['cadena'],
-                connection=con
-            )
+            valor=''
+            for key, value in request.POST.items():
+                if  key == "cadena":
+                    print(value)
+                    valor = value
+                
+
+            return render(request,
+                'pages/consulta.html',
+                {'form': form,
+                'page_list': Page.objects.all(),
+                'submitted': submitted, 
+                'respuesta': valor,
+                'mensaje': "Exitosamente recibimos la siguiente consulta: "})  
+            
     else:
         form = ProbarForm()
         if 'submitted' in request.GET:
@@ -44,6 +53,7 @@ def expresion(request):
                 {'form': form,
                 'page_list': Page.objects.all(),
                 'submitted': submitted})
+                
     
         
     

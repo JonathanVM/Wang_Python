@@ -53,7 +53,7 @@ class AndLeft(Rule):
         for (p, f) in ands:
             newleft = utils.replace(deduction.left, p, [f.left, f.right])
             yield (self.kind, p, Deduction(list(newleft), deduction.right))
-            
+
 AND_LEFT_RULE= AndLeft()
 
 class OrLeft(Rule):
@@ -81,6 +81,26 @@ class AndRight(Rule):
             yield (self.kind, p, Deduction(deduction.left, list(newRight)))
 
 AND_RIGHT_RULE = AndRight()
+            
+class Equiv(Rule):
+    def __init__(self):
+        super().__init__(RuleType.EQUIV)
+    def apply(self, deduction):
+        thensLeft = ((p, f) for (p, f) in enumerate(deduction.left) if isinstance(f, Then))
+        for(p, f) in (thensLeft):
+            newleft = utils.replace(deduction.left, p, [Or(Not(f.left), f.right)])
+            yield (self.kind, p, Deduction(list(newleft), deduction.right))
+        thensRight = ((p, f) for (p, f) in enumerate(deduction.right) if isinstance(f, Then))
+        for (p, f) in (thensRight):
+            newRight = utils.replace(deduction.right, p, [Or(Not(f.left), f.right)])
+            yield (self.kind, p, Deduction(deduction.left, list(newRight)))
+        '''for (p, f) in enumerate(deduction.right):
+            if isinstance(f, Then):
+                newRight = utils.replace(deduction.right, p, [Not(f.left), f.right])
+                yield (self.kind, p, Deduction(list(newleft), list(newRight)))'''
+
+
+EQUIV_RULE = Equiv()
 
 if __name__ == "__main__":
     print("*** Testing Proofs ***")
@@ -104,4 +124,7 @@ if __name__ == "__main__":
        print(f)
     print("4) AndRight Test", ded)
     for f in AND_RIGHT_RULE.apply(ded):
+        print(f)
+    print("3) Equiv Test", ded)
+    for f in EQUIV_RULE.apply(ded):
         print(f)

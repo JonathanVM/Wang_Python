@@ -57,7 +57,26 @@ class AndLeft(Rule):
             
 AND_LEFT_RULE= AndLeft()        
             
-        
+class Equiv(Rule):
+    def __init__(self):
+        super().__init__(RuleType.EQUIV)
+    def apply(self, deduction):
+        thensLeft = ((p, f) for (p, f) in enumerate(deduction.left) if isinstance(f, Then))
+        for(p, f) in (thensLeft):
+            newleft = utils.replace(deduction.left, p, [Or(Not(f.left), f.right)])
+            yield (self.kind, p, Deduction(list(newleft), deduction.right))
+        thensRight = ((p, f) for (p, f) in enumerate(deduction.right) if isinstance(f, Then))
+        for (p, f) in (thensRight):
+            newRight = utils.replace(deduction.right, p, [Or(Not(f.left), f.right)])
+            yield (self.kind, p, Deduction(deduction.left, list(newRight)))
+        '''for (p, f) in enumerate(deduction.right):
+            if isinstance(f, Then):
+                newRight = utils.replace(deduction.right, p, [Not(f.left), f.right])
+                yield (self.kind, p, Deduction(list(newleft), list(newRight)))'''
+
+
+EQUIV_RULE = Equiv()
+
 if __name__ == "__main__":
     print("*** Testing Proofs ***")
     t = TRUE
@@ -68,12 +87,13 @@ if __name__ == "__main__":
     na = Not(a)
     b = Or(a, na)
     c = Then(p, b)
-    ded = Deduction([a, b, p], [na, c, p])
+    ded = Deduction([a, b, p, c], [na, c, p])
     print("1) Axiom test", ded)
     for f in AXIOM_RULE.apply(ded):
         print(f)
     print("2) AndLeft Test", ded)
     for f in AND_LEFT_RULE.apply(ded):
         print(f)
-    
-    
+    print("3) Equiv Test", ded)
+    for f in EQUIV_RULE.apply(ded):
+        print(f)

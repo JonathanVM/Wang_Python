@@ -97,12 +97,12 @@ class OrLeft(Rule):
     def __init__(self):
         super().__init__(RuleType.OR_LEFT)
     def apply(self, deduction):
-        ors1 = ((p, f) for (p, f) in enumerate(deduction.left) if isinstance(f, Or))
-        for (p, f) in ors1:
-            newleft = utils.replace(deduction.left, p, [f.left])
-            yield (self.kind, p, Deduction(list(newleft), deduction.right))
-            newRight = utils.replace(deduction.left, p, [f.right])
-            yield (self.kind, p, Deduction(list(newRight), deduction.right))
+        for (p, f) in enumerate(deduction.left):
+            if isinstance(f, Or):
+                deductionA = utils.replace(deduction.left, p, [f.left])
+                yield (self.kind, p, Deduction(list(deductionA), deduction.right))
+                deductionB = utils.replace(deduction.left, p, [f.right])
+                yield (self.kind, p, Deduction(list(deductionB), deduction.right))
 
 OR_LEFT_RULE= OrLeft()
 
@@ -110,12 +110,12 @@ class AndRight(Rule):
     def __init__(self):
         super().__init__(RuleType.AND_RIGHT)
     def apply(self, deduction):
-        ands1 = ((p, f) for (p, f) in enumerate(deduction.right) if isinstance(f, And))
-        for (p, f) in ands1:
-            newleft = utils.replace(deduction.right, p, [f.left])
-            yield (self.kind, p, Deduction(deduction.left, list(newleft)))
-            newRight = utils.replace(deduction.right, p, [f.right])
-            yield (self.kind, p, Deduction(deduction.left, list(newRight)))
+        for (p, f) in enumerate(deduction.right):
+            if isinstance(f, And):
+                deductionA = utils.replace(deduction.right, p, [f.left])
+                yield (self.kind, p, Deduction(deduction.left, list(deductionA)))
+                deductionB = utils.replace(deduction.right, p, [f.right])
+                yield (self.kind, p, Deduction(deduction.left, list(deductionB)))
 
 AND_RIGHT_RULE = AndRight()
             
@@ -144,36 +144,39 @@ if __name__ == "__main__":
     na = Not(a)
     b = Or(a, p)
     c = Then(p, b)
-    ded = Deduction([na, a, b], [c, na, a])
+    ded = Deduction([b, p,c], [q, c])
+
+    """
     print("1) Axiom test", ded)
     for f in AXIOM_RULE.apply(ded):
         print(f)
-
-
-    """print("2) NotLeft Test", ded)
+    """
+    """
+    print("2) NotLeft Test", ded)
     for f in NOT_LEFT_RULE.apply(ded):
         print(f)
     print("3) NotRight Test", ded)
     for f in NOT_RIGHT_RULE.apply(ded):
         print(f)
-        
-        
+    """
+    """
     print("4) AndLeft Test", ded)
     for f in AND_LEFT_RULE.apply(ded):
         print(f)
     print("5) OrRight Test", ded)
     for f in OR_RIGHT_RULE.apply(ded):
        print(f)
-        
-        
+    """
+
     print("6) AndRight Test", ded)
     for f in AND_RIGHT_RULE.apply(ded):
         print(f)   
     print("7) OrLeft Test", ded)
     for f in OR_LEFT_RULE.apply(ded):
        print(f)
-       
-  
+
+
     print("8) Equiv Test", ded)
     for f in EQUIV_RULE.apply(ded):
-        print(f)"""
+        print(f)
+

@@ -80,7 +80,7 @@ class AndLeft(Rule):
                 newleft = utils.replace(deduction.left, p, [f.left, f.right])
                 yield (self.kind, p, Deduction(list(newleft), deduction.right))
 
-AND_LEFT_RULE= AndLeft()
+AND_LEFT_RULE = AndLeft()
 
 class OrRight(Rule):
     def __init__(self):
@@ -148,21 +148,32 @@ if __name__ == "__main__":
     print("1) Axiom test", ded)
     for f in AXIOM_RULE.apply(ded):
         print(f)
+
+
     """print("2) NotLeft Test", ded)
     for f in NOT_LEFT_RULE.apply(ded):
         print(f)
     print("3) NotRight Test", ded)
     for f in NOT_RIGHT_RULE.apply(ded):
         print(f)
-    print("2) AndLeft Test", ded)
+        
+        
+    print("4) AndLeft Test", ded)
     for f in AND_LEFT_RULE.apply(ded):
         print(f)
-    print("3) OrLeft Test", ded)
+    print("5) OrRight Test", ded)
+    for f in OR_RIGHT_RULE.apply(ded):
+       print(f)
+        
+        
+    print("6) AndRight Test", ded)
+    for f in AND_RIGHT_RULE.apply(ded):
+        print(f)   
+    print("7) OrLeft Test", ded)
     for f in OR_LEFT_RULE.apply(ded):
        print(f)
-    print("4) AndRight Test", ded)
-    for f in AND_RIGHT_RULE.apply(ded):
-        print(f)
-    print("3) Equiv Test", ded)
+       
+  
+    print("8) Equiv Test", ded)
     for f in EQUIV_RULE.apply(ded):
         print(f)"""

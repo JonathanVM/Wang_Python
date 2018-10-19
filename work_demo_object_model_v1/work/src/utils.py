@@ -8,4 +8,4 @@ def replace(iter, pos, formulas):
 if __name__ == "__main__":
     m = [0,1,2,3,4,5]
     rep = [666]
-    print(m, rep, list(replace(m, 5, rep)))
+    print(m, rep, list(replace(m, 2, rep)))

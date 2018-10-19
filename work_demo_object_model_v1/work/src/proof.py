@@ -21,6 +21,7 @@ class RuleType(Enum):
     AND_LEFT = auto()
     AND_RIGHT = auto()
     EQUIV = auto()
+    TWO_THEN = auto()
 
 class Just:
     def __init__(self, subject, rule):
@@ -134,6 +135,21 @@ class Equiv(Rule):
 
 EQUIV_RULE = Equiv()
 
+class DobleImplica(Rule):
+    def __init__(self):
+        super().__init__(RuleType.TWO_THEN)
+    def apply(self, deduction):
+        for (p, f) in enumerate(deduction.left):
+            if isinstance(f, TwoThen):
+                newleft = utils.replace(deduction.left, p, [And(Then(f.left, f.right), Then(f.right, f.left))])
+                yield (self.kind, p, Deduction(list(newleft), deduction.right))
+        for (p, f) in enumerate(deduction.right):
+            if isinstance(f, TwoThen):
+                newRight = utils.replace(deduction.right, p, [And(Then(f.left, f.right), Then(f.right, f.left))])
+                yield (self.kind, p, Deduction(deduction.left, list(newRight)))
+
+TWOTHEN_RULE = DobleImplica()
+
 if __name__ == "__main__":
     print("*** Testing Proofs ***")
     t = TRUE
@@ -143,8 +159,9 @@ if __name__ == "__main__":
     a = And(p, q)
     na = Not(a)
     b = Or(a, p)
+    z = TwoThen(p, a)
     c = Then(p, b)
-    ded = Deduction([b, p,c], [q, c])
+    ded = Deduction([z, p,c], [q, c])
 
     """
     print("1) Axiom test", ded)
@@ -178,5 +195,9 @@ if __name__ == "__main__":
 
     print("8) Equiv Test", ded)
     for f in EQUIV_RULE.apply(ded):
+        print(f)
+
+    print("9) Doble Implica Test", ded)
+    for f in TWOTHEN_RULE.apply(ded):
         print(f)
 

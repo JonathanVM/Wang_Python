@@ -30,10 +30,10 @@ class Operator:
 OR = Operator("|", arity=2, preced=4)
 AND = Operator("&", arity=2, preced=8)
 THEN = Operator("->", arity=2, preced=2)
+TWOTHEN = Operator("<->", arity=2, preced=3)
 NOT = Operator("~", arity=1, preced=16)
 
 
-    
 class Formula:
     def __init__(self, *args):
         self.args = args
@@ -113,6 +113,12 @@ class And(BiFormula):
 class Then(BiFormula):
     def __init__(self, left, right):
         super().__init__(THEN, left, right)
+    def weak_nf(self):
+        return Or(Not(self.left), self.right)
+
+class TwoThen(BiFormula):
+    def __init__(self, left, right):
+        super().__init__(TWOTHEN, left, right)
     def weak_nf(self):
         return Or(Not(self.left), self.right)
   

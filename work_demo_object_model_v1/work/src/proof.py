@@ -54,9 +54,22 @@ class NotLeft(Rule):
         for (p, f) in enumerate(deduction.left):
             if isinstance(f, Not):
                 newleft = utils.replace(deduction.left, p, [])
-                newright = utils.replace(deduction.right, 100, f.left)
+                newright = utils.replace(deduction.right, len(deduction.right), [f.left])
                 yield (self.kind, p, Deduction(list(newleft), list(newright)))
+
 NOT_LEFT_RULE = NotLeft()
+
+class NotRight(Rule):
+    def __init__(self):
+        super().__init__(RuleType.NOT_RIGHT)
+    def apply(self, deduction):
+        for (p, f) in enumerate(deduction.right):
+            if isinstance(f, Not):
+                newleft = utils.replace(deduction.left, len(deduction.left), [f.left])
+                newright = utils.replace(deduction.right, p, [])
+                yield (self.kind, p, Deduction(list(newleft), list(newright)))
+
+NOT_RIGHT_RULE = NotRight()
 
 class AndLeft(Rule):
     def __init__(self):
@@ -132,11 +145,14 @@ if __name__ == "__main__":
     b = Or(a, p)
     c = Then(p, b)
     ded = Deduction([na, a, b], [c, na, a])
-    print("0) Axiom test", ded)
+    print("1) Axiom test", ded)
     for f in AXIOM_RULE.apply(ded):
         print(f)
-    print("1) NotLeft Test", ded)
+    """print("2) NotLeft Test", ded)
     for f in NOT_LEFT_RULE.apply(ded):
+        print(f)
+    print("3) NotRight Test", ded)
+    for f in NOT_RIGHT_RULE.apply(ded):
         print(f)
     print("2) AndLeft Test", ded)
     for f in AND_LEFT_RULE.apply(ded):
@@ -149,4 +165,4 @@ if __name__ == "__main__":
         print(f)
     print("3) Equiv Test", ded)
     for f in EQUIV_RULE.apply(ded):
-        print(f)
+        print(f)"""

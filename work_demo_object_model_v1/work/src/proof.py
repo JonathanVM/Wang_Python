@@ -43,6 +43,9 @@ class Axiom(Rule):
     def apply(self, deduction):
         for (pi, p) in enumerate(deduction.left):
             if p in deduction.right:
+                for (pd, p) in enumerate(deduction.right):
+                    if p in deduction.left:
+                        yield (self.kind, pi, deduction,pd)
                 yield (self.kind, pi, deduction)
         
 
@@ -163,11 +166,12 @@ if __name__ == "__main__":
     c = Then(p, b)
     ded = Deduction([z, p,c], [q, c])
 
-    """
+    print(ded)
+
     print("1) Axiom test", ded)
     for f in AXIOM_RULE.apply(ded):
         print(f)
-    """
+
     """
     print("2) NotLeft Test", ded)
     for f in NOT_LEFT_RULE.apply(ded):
@@ -184,7 +188,7 @@ if __name__ == "__main__":
     for f in OR_RIGHT_RULE.apply(ded):
        print(f)
     """
-
+    """
     print("6) AndRight Test", ded)
     for f in AND_RIGHT_RULE.apply(ded):
         print(f)   
@@ -200,4 +204,4 @@ if __name__ == "__main__":
     print("9) Doble Implica Test", ded)
     for f in TWOTHEN_RULE.apply(ded):
         print(f)
-
+    """

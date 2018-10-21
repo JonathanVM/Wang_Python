@@ -138,20 +138,20 @@ class Equiv(Rule):
 
 EQUIV_RULE = Equiv()
 
-class DobleImplica(Rule):
+class Iff(Rule):
     def __init__(self):
         super().__init__(RuleType.TWO_THEN)
     def apply(self, deduction):
         for (p, f) in enumerate(deduction.left):
-            if isinstance(f, TwoThen):
+            if isinstance(f, Biconditional):
                 newleft = utils.replace(deduction.left, p, [And(Then(f.left, f.right), Then(f.right, f.left))])
                 yield (self.kind, p, Deduction(list(newleft), deduction.right))
         for (p, f) in enumerate(deduction.right):
-            if isinstance(f, TwoThen):
+            if isinstance(f, Biconditional):
                 newRight = utils.replace(deduction.right, p, [And(Then(f.left, f.right), Then(f.right, f.left))])
                 yield (self.kind, p, Deduction(deduction.left, list(newRight)))
 
-TWOTHEN_RULE = DobleImplica()
+IFF_RULE = Iff()
 
 if __name__ == "__main__":
     print("*** Testing Proofs ***")
@@ -162,7 +162,7 @@ if __name__ == "__main__":
     a = And(p, q)
     na = Not(a)
     b = Or(a, p)
-    z = TwoThen(p, a)
+    z = Biconditional(p, a)
     c = Then(p, b)
     ded = Deduction([z, p,c], [q, c])
 
@@ -202,6 +202,6 @@ if __name__ == "__main__":
         print(f)
 
     print("9) Doble Implica Test", ded)
-    for f in TWOTHEN_RULE.apply(ded):
+    for f in IFF_RULE.apply(ded):
         print(f)
     """

@@ -30,7 +30,7 @@ class Operator:
 OR = Operator("|", arity=2, preced=4)
 AND = Operator("&", arity=2, preced=8)
 THEN = Operator("->", arity=2, preced=2)
-TWOTHEN = Operator("<->", arity=2, preced=3)
+BICONDITIONAL = Operator("<->", arity=2, preced=3)
 NOT = Operator("~", arity=1, preced=16)
 
 
@@ -116,9 +116,9 @@ class Then(BiFormula):
     def weak_nf(self):
         return Or(Not(self.left), self.right)
 
-class TwoThen(BiFormula):
+class Biconditional(BiFormula):
     def __init__(self, left, right):
-        super().__init__(TWOTHEN, left, right)
+        super().__init__(BICONDITIONAL, left, right)
     def weak_nf(self):
         return Or(Not(self.left), self.right)
   

@@ -3,7 +3,7 @@ __coauthor__ = 'loriacarlos@gmail.com'
 
 from WangVisitor import WangVisitor
 from WangParser import WangParser
-#from Proyecto.formula import *
+from formula import *
 
 """
     Tests Wang Visitor
@@ -33,7 +33,7 @@ class WangPrintVisitor(WangVisitor):
 
     def visitAndExpr(self, ctx):
         print('Visiting AndExpr (&)')
-		And(ctx.expr(0),ctx.expr(1))
+		#print(And(ctx.expr(0),ctx.expr(1)))
         self.visit(ctx.expr(0))
         self.visit(ctx.expr(1))
         

@@ -33,7 +33,6 @@ class WangPrintVisitor(WangVisitor):
 
     def visitAndExpr(self, ctx):
         print('Visiting AndExpr (&)')
-		#print(And(ctx.expr(0),ctx.expr(1)))
         self.visit(ctx.expr(0))
         self.visit(ctx.expr(1))
         
@@ -42,7 +41,6 @@ class WangPrintVisitor(WangVisitor):
         print('Visiting OrExpr (|)')
         self.visit(ctx.expr(0))
         self.visit(ctx.expr(1))
-       
 
     def visitParens(self, ctx):
         print('Visiting ParenExpr (...)')
@@ -51,6 +49,5 @@ class WangPrintVisitor(WangVisitor):
     def visitNotExpr(self, ctx):
         print('Visiting NotExpr (~) ')
         self.visit(ctx.expr())
-        
+        print(Not(Atom("q")))
 
-    

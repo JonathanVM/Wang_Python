@@ -61,5 +61,7 @@ if __name__ == '__main__':
     #Setup the Visitor and visit Parse tree
     visitor = WangPrintVisitor()
     print("*** Starts visit of data ***")
-    visitor.visit(tree)
+    res = list(visitor.visit(tree))
+    for i in range(len(res)):
+        print(f"Resultado: {res[i]}")
     

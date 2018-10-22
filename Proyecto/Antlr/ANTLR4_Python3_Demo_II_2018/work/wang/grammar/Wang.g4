@@ -7,8 +7,12 @@ grammar Wang;
 assertion: formula ('.' formula)*EOF
 ;
 
-formula:  sequence ('=>'  sequence)? #FormExpr
+formula:  premises ('=>'  conclusions)? #FormExpr
    
+;
+premises : sequence
+;
+conclusions : sequence
 ;
 sequence: listexpr?           
 ;

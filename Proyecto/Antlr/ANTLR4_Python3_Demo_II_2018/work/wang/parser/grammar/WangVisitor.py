@@ -19,6 +19,16 @@ class WangVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by WangParser#premises.
+    def visitPremises(self, ctx:WangParser.PremisesContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by WangParser#conclusions.
+    def visitConclusions(self, ctx:WangParser.ConclusionsContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by WangParser#sequence.
     def visitSequence(self, ctx:WangParser.SequenceContext):
         return self.visitChildren(ctx)

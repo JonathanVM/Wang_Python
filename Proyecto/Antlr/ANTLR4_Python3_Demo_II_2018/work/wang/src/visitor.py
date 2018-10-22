@@ -3,7 +3,7 @@ __coauthor__ = 'loriacarlos@gmail.com'
 
 from WangVisitor import WangVisitor
 from WangParser import WangParser
-from ....formula import *
+from formula import *
 from deduction import *
 
 """

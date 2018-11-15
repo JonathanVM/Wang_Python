@@ -45,8 +45,8 @@ class Axiom(Rule):
             if p in deduction.right:
                 for (pd, p) in enumerate(deduction.right):
                     if p in deduction.left:
-                        yield (self.kind, pi, deduction,pd)
-                yield (self.kind, pi, deduction)
+                        yield (self.kind, pi, pd, deduction)
+
         
 
 AXIOM_RULE = Axiom()

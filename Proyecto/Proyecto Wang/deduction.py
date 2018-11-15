@@ -28,7 +28,7 @@ class Deduction:
     def __str__(self):
         return self._stringify(str)
     def __eq__(self, other):
-        return self.right == other.right and self.left == self.left
+        return self.right == other.right and self.left == other.left
     def to_formula(self):
         left = reduce(lambda a, f: And(a, f), self.left)
         right = reduce(lambda a, f: Or(a, f), self.right)

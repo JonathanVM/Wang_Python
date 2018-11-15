@@ -27,6 +27,8 @@ class Deduction:
         return self._stringify(repr)
     def __str__(self):
         return self._stringify(str)
+    def __eq__(self, other):
+        return self.right == other.right and self.left == self.left
     def to_formula(self):
         left = reduce(lambda a, f: And(a, f), self.left)
         right = reduce(lambda a, f: Or(a, f), self.right)
@@ -44,7 +46,10 @@ if __name__ == "__main__":
     b = Or(a, na)
     c = Then(p, b)
     ded = Deduction([a, b], [na, c])
-    print(ded)
+    ded3 = Deduction([a, b], [na, c])
+    print(f"Deducción 1: {ded}")
+    print(f"Deducción 3: {ded3}")
+    print (f"{ded == ded3}")
     print(ded.to_formula())
     ded2 = Deduction([p, q, p], [q, Not(q)])
     print(ded2, ded2.to_formula())

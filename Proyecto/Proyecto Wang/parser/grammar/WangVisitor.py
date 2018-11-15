@@ -44,6 +44,11 @@ class WangVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by WangParser#BiconditionalExpr.
+    def visitBiconditionalExpr(self, ctx:WangParser.BiconditionalExprContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by WangParser#Parens.
     def visitParens(self, ctx:WangParser.ParensContext):
         return self.visitChildren(ctx)

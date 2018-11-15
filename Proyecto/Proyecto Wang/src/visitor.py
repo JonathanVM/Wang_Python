@@ -20,12 +20,8 @@ class WangPrintVisitor(WangVisitor):
         print(f"Total de formula: {len(ctx.formula())}")
         for i in range(len(ctx.formula()) - 1):
             formulaPrint = self.visit(ctx.formula(i))
-            if not formulaPrint:
-                yield "La expresión no es correcta"
-                print(f"La expresion no es correcta\n")
-            else:
-                yield "La expresión es correcta"
-                print(f"La expresion es correcta\n")
+            print(f"La expresion es: {formulaPrint}\n")
+            yield formulaPrint != None
         
     def visitPremises(self, ctx):
         list_res = self.visit(ctx.sequence())
@@ -71,6 +67,12 @@ class WangPrintVisitor(WangVisitor):
         res_left = self.visit(ctx.expr(0))
         res_right = self.visit(ctx.expr(1))
         return  Or(res_left, res_right)
+        
+    def visitBiconditionalExpr(self, ctx):
+        print ('Visiting BiconditionalExpr (<->) ')
+        res_left = self.visit(ctx.expr(0))
+        res_right = self.visit(ctx.expr(1))
+        return Biconditional(res_left, res_right)
 
     def visitParens(self, ctx):
         print('Visiting ParenExpr (...)')

@@ -101,12 +101,12 @@ class OrLeft(Rule):
     def __init__(self):
         super().__init__(RuleType.OR_LEFT)
     def apply(self, deduction):
+
         for (p, f) in enumerate(deduction.left):
             if isinstance(f, Or):
                 deductionA = utils.replace(deduction.left, p, [f.left])
-                yield (self.kind, p, Deduction(list(deductionA), deduction.right))
                 deductionB = utils.replace(deduction.left, p, [f.right])
-                yield (self.kind, p, Deduction(list(deductionB), deduction.right))
+                yield (self.kind, p, Deduction(list(deductionA), deduction.right), Deduction(list(deductionB), deduction.right))
 
 OR_LEFT_RULE= OrLeft()
 
@@ -117,9 +117,8 @@ class AndRight(Rule):
         for (p, f) in enumerate(deduction.right):
             if isinstance(f, And):
                 deductionA = utils.replace(deduction.right, p, [f.left])
-                yield (self.kind, p, Deduction(deduction.left, list(deductionA)))
                 deductionB = utils.replace(deduction.right, p, [f.right])
-                yield (self.kind, p, Deduction(deduction.left, list(deductionB)))
+                yield (self.kind, p, Deduction(deduction.left, list(deductionA)), Deduction(deduction.left, list(deductionB)))
 
 AND_RIGHT_RULE = AndRight()
             
@@ -164,7 +163,7 @@ if __name__ == "__main__":
     b = Or(a, p)
     z = Biconditional(p, a)
     c = Then(p, b)
-    ded = Deduction([z, p,c], [q, c])
+    ded = Deduction([z, p, c, na], [q, na])
 
     print(ded)
 
@@ -172,14 +171,14 @@ if __name__ == "__main__":
     for f in AXIOM_RULE.apply(ded):
         print(f)
 
-    """
+
     print("2) NotLeft Test", ded)
     for f in NOT_LEFT_RULE.apply(ded):
         print(f)
     print("3) NotRight Test", ded)
     for f in NOT_RIGHT_RULE.apply(ded):
         print(f)
-    """
+
     """
     print("4) AndLeft Test", ded)
     for f in AND_LEFT_RULE.apply(ded):

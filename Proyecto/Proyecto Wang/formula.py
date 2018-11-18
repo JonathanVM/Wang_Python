@@ -91,12 +91,14 @@ class BiFormula(Formula, StrReprMixin):
     def __init__(self, oper, left, right):
         super().__init__(left, right)
         self.oper = oper
-        
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.left == other.left and self.right == other.right
 class MonoFormula(Formula, StrReprMixin):
     def __init__(self, oper, left):
         super().__init__(left)
         self.oper = oper
-
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.left == other.left
 # Implementaciones concretas        
 class Not(MonoFormula):
     def __init__(self, left):
@@ -105,11 +107,11 @@ class Not(MonoFormula):
 class Or(BiFormula):
     def __init__(self, left, right):
         super().__init__(OR, left, right)
-        
+
 class And(BiFormula):
     def __init__(self, left, right):
         super().__init__(AND, left, right)
-        
+
 class Then(BiFormula):
     def __init__(self, left, right):
         super().__init__(THEN, left, right)
@@ -121,7 +123,7 @@ class Biconditional(BiFormula):
         super().__init__(BICONDITIONAL, left, right)
     def weak_nf(self):
         return Or(Not(self.left), self.right)
-  
+
 if __name__ == "__main__":
     print("*** Testing formulas ***")
     t = TRUE

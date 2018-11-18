@@ -67,6 +67,7 @@ if __name__ == "__main__":
     p = Atom("p")
     q = Atom("q")
     np = Not(p)
+    np2 = Not(p)
     nq = Not(q)
     npnq = And(np, nq)
     a = And(p, q)

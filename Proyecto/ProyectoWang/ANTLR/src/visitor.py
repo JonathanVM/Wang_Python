@@ -1,8 +1,12 @@
 __author__ = 'jszheng'
 __coauthor__ = 'loriacarlos@gmail.com'
 
+import sys
+sys.path.insert(0, '..\ANTLR\parser\grammar')
 from WangVisitor import WangVisitor
 from WangParser import WangParser
+
+sys.path.insert(0, '..\modelo')
 from formula import *
 from deduction import *
 
@@ -20,8 +24,7 @@ class WangPrintVisitor(WangVisitor):
         print(f"Total de formula: {len(ctx.formula())}")
         for i in range(len(ctx.formula()) - 1):
             formulaPrint = self.visit(ctx.formula(i))
-            print(f"La expresion es: {formulaPrint}\n")
-            yield formulaPrint != None
+            yield formulaPrint
         
     def visitPremises(self, ctx):
         list_res = self.visit(ctx.sequence())
@@ -35,7 +38,6 @@ class WangPrintVisitor(WangVisitor):
         return list_res
         
     def visitFormExpr(self, ctx):
-        #print(f'\nStart Visiting FormExpr (=>) {len(ctx.conclusions())} children')
         res_premises = self.visit(ctx.premises())
         res_conclusions = self.visit(ctx.conclusions())
         #Verificar si premisas esta vacia

@@ -29,6 +29,26 @@ class MyErrorListener(ErrorListener):
         error_msg = f"{self.__class__.__name__}: line {line}: {charPositionInLine} {msg}"
         raise SyntaxError(error_msg)
 
+def deductionParser(expresion):
+    input_stream = InputStream(expresion)
+        # Setup Lexer 
+    print(f"Data:\n{input_stream}")
+    lexer = WangLexer(input_stream)
+    token_stream = CommonTokenStream(lexer)
+    #Setup Parser (and own ErrorListener)
+    parser = WangParser(token_stream)
+    parser.removeErrorListeners()
+    parser.addErrorListener(MyErrorListener())
+    try:
+        tree = parser.assertion()
+    except SyntaxError as e:
+        print(e.msg)
+        sys.exit(-1)
+        #Setup the Visitor and visit Parse tree
+    visitor = WangPrintVisitor()
+    print("*** Starts visit of data ***")
+    return list(visitor.visit(tree))
+
 if __name__ == '__main__':
     print("*** Testing Wang Parser (EIF400 II-2018) ***")
     if len(sys.argv) > 1:

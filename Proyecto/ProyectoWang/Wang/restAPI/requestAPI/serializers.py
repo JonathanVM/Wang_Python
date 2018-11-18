@@ -1,8 +1,13 @@
 from rest_framework import serializers
 from .models import Pruebas
-from Proyecto.ProyectoWang.ANTLR.src.visitor import *
-#from deduction import *
-#from visitor import WangPrintVisitor
+
+import sys
+sys.path.insert(0, '..\ANTLR\src')
+from visitor import *
+from wang import *
+
+from deduction import *
+from deductionTree import *
 
 class PruebasSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -13,7 +18,14 @@ class PruebasSerializer(serializers.HyperlinkedModelSerializer):
         print(f">>>probador {data}")
         expre = data['expresion']
         print(f">>>expresion {expre}")
-        result = WangPrintVisitor()
+        result = deductionParser(expre)
+        
+        for i in range(len(result)):
+            arbolDeduction = DeductionTree()
+            salidaArbol = arbolDeduction.buildTree(result[i])
+            print(salidaArbol)
+            data['idExpresion'] = salidaArbol
+        print(f"Posicion 0: {result[0]}")
         return super().create(data) 
         
     

@@ -3,6 +3,7 @@ from .models import Pruebas
 
 import sys
 sys.path.insert(0, '..\ANTLR\src')
+
 from visitor import *
 from wang import *
 
@@ -12,7 +13,7 @@ from deductionTree import *
 class PruebasSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Pruebas
-        fields = ('id','url','idExpresion','expresion')
+        fields = ('id','url','expresion')
         
     def create(self, data):
         print(f">>>probador {data}")
@@ -24,8 +25,8 @@ class PruebasSerializer(serializers.HyperlinkedModelSerializer):
             arbolDeduction = DeductionTree()
             salidaArbol = arbolDeduction.buildTree(result[i])
             print(salidaArbol)
-            data['idExpresion'] = salidaArbol
+            #data['idExpresion'] = salidaArbol
         print(f"Posicion 0: {result[0]}")
-        return super().create(data) 
+        return super().create(data)
         
     

@@ -42,10 +42,11 @@ class Axiom(Rule):
         super().__init__(RuleType.AXIOM)
     def apply(self, deduction):
         for (pi, p) in enumerate(deduction.left):
-            if p in deduction.right:
-                for (pd, p) in enumerate(deduction.right):
-                    if p in deduction.left:
-                        yield (self.kind, pi, pd, deduction)
+            #if p in deduction.right:
+
+            for (pd, q) in enumerate(deduction.right):
+                if q == p:
+                    yield (self.kind, pi, pd, deduction)
 
         
 

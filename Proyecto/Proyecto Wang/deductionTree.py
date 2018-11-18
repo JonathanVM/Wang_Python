@@ -1,27 +1,47 @@
 from deduction import *
 from proof import *
+"""
 class Nodo:
     def __init__(self, info, left = None, right = None):
         self.info = info
         self.right = right
         self.left = left
+    def _stringify(self, view):
+        root = "f{{self.info[0]}}, "
+        if self.info[0] == RuleType.AXIOM:
+            return "{" + f"'RuleType': {self.info[0]}, 'posLeft': {self.info[1]}, 'posRight': {self.info[2]}, 'expresion': {self.info[3]}, 'hijos': [left: {None}, right: {None}]" + "}"
+
+        if self.info[0] == RuleType.AND_RIGHT or self.info[0] == RuleType.OR_LEFT:
+            return "{" + f"'RuleType': {self.info[0]}, 'posLeft': {self.info[1]}, 'posRight': {self.info[2]}, 'expresion': {self.info[3]}, 'hijos': [left: {None}, right: {None}]" + "}"
+
+        #"[{" + f"tipo: {self.info[0]}, 'posLeft': {self.info[1]}, posRight: {self.info[2]}, expresion: {self.info[3]}, hijos: [left: {self.left.__str__()}, right: {None}]" + "}]"
+
+        #leftded  = ", ".join(map(view, self.left))
+        #rightded = ", ".join(map(view, self.right))
+        return f"{self.info[0]} => {self.info[1]}"
     def __str__(self):
-        return self.root
+        return self._stringify(str)
     def __repr__(self):
         return str(self)
-
+"""
 class DeductionTree:
     def __init__(self, deduction):
         self.deduction = deduction
         self.tree = []
-    def buidTree(self, deduction):
+    def buildTree(self, deduction):
         try:
-            child = self.evaluateDeduction(deduction)
-            if(child[0] == RuleType.AXIOM):
-                return Nodo(child)
-            
+            child = next(self.evaluateDeduction(deduction))
+            if child[0] == RuleType.AXIOM:
+                return "{" + f"'RuleType':{child[0]}, 'posLeft':{child[1]}, 'posRight':{child[2]}, 'deduction':{child[3]}, 'hijos':['left':{None}, 'right':{None}]" + "}\n"
+                #return Nodo(child)
+            string = "{" + f"'RuleType':{child[0]}, 'pos':{child[1]}, 'deduction':{deduction}, "
+            if child[0] == RuleType.AND_RIGHT or child[0] == RuleType.OR_LEFT:
+                return string + f"'hijos':['left':{self.buildTree(child[2])}, 'right':{self.buildTree(child[3])}]" + "}\n"
+            return string + f"'hijos':['left':{self.buildTree(child[2])}, 'right':{None}]" + "}\n"
+                #return Nodo((child[0], child[1], deduction), self.buildTree(child[2]), self.buildTree(child[3]))
+            #return Nodo((child[0], child[1], deduction), self.buildTree(child[2]), None)
         except StopIteration:
-            return
+            return None
     def pipe(self, current, *iterables):
         for n in iterables:
             yield from n(current)
@@ -31,12 +51,12 @@ class DeductionTree:
         AXIOM_RULE.apply,
         AND_LEFT_RULE.apply,
         OR_RIGHT_RULE.apply,
+        AND_RIGHT_RULE.apply,
+        OR_LEFT_RULE.apply,
         EQUIV_RULE.apply,
         IFF_RULE.apply,
         NOT_LEFT_RULE.apply,
         NOT_RIGHT_RULE.apply,
-        AND_RIGHT_RULE.apply,
-        OR_LEFT_RULE.apply,
     )
 
 
@@ -46,13 +66,18 @@ if __name__ == "__main__":
     f = FALSE
     p = Atom("p")
     q = Atom("q")
+    np = Not(p)
+    nq = Not(q)
+    npnq = And(np, nq)
     a = And(p, q)
     na = Not(a)
     b = Or(a, p)
     z = Biconditional(p, a)
-    c = Then(p, b)
-    ded = Deduction([z, p, c], [q, c])
+    qp = Then(q, p)
+    c = Then(p, z)
+    ded = Deduction([np, qp], [npnq])
     DEDUCTION_TREE = DeductionTree(ded)
-    prueba_eval = DEDUCTION_TREE.evaluateDeduction(ded)
+    """prueba_eval = DEDUCTION_TREE.evaluateDeduction(ded)
     print(f"Original: {ded}")
-    print(f"Evaluado1: {next(prueba_eval)}")
+    print(f"Evaluado1: {next(prueba_eval)}")"""
+    print(DEDUCTION_TREE.buildTree(ded))

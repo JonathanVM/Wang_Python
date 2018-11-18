@@ -1,1 +1,0 @@
-antlr4p3 -o .\parser .\grammar\LabeledExpr.g4 

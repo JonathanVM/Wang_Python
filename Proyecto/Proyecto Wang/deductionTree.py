@@ -25,9 +25,8 @@ class Nodo:
         return str(self)
 """
 class DeductionTree:
-    def __init__(self, deduction):
-        self.deduction = deduction
-        self.tree = []
+    def __init__(self):
+        pass
     def buildTree(self, deduction):
         try:
             child = next(self.evaluateDeduction(deduction))
@@ -77,7 +76,7 @@ if __name__ == "__main__":
     qp = Then(q, p)
     c = Then(p, z)
     ded = Deduction([np, qp], [npnq])
-    DEDUCTION_TREE = DeductionTree(ded)
+    DEDUCTION_TREE = DeductionTree()
     """prueba_eval = DEDUCTION_TREE.evaluateDeduction(ded)
     print(f"Original: {ded}")
     print(f"Evaluado1: {next(prueba_eval)}")"""

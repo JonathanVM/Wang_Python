@@ -11,6 +11,7 @@ from deduction import *
 from deductionTree import *
 
 class PruebasSerializer(serializers.HyperlinkedModelSerializer):
+    #respuesta = serializers.Field(source='respuesta') 
     class Meta:
         model = Pruebas
         fields = ('id','url','expresion')
@@ -25,7 +26,7 @@ class PruebasSerializer(serializers.HyperlinkedModelSerializer):
             arbolDeduction = DeductionTree()
             salidaArbol = arbolDeduction.buildTree(result[i])
             print(salidaArbol)
-            #data['idExpresion'] = salidaArbol
+            #data['respuesta'] = salidaArbol
         print(f"Posicion 0: {result[0]}")
         return super().create(data)
         

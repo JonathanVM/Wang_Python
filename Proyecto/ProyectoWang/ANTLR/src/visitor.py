@@ -69,6 +69,12 @@ class WangPrintVisitor(WangVisitor):
         res_left = self.visit(ctx.expr(0))
         res_right = self.visit(ctx.expr(1))
         return  Or(res_left, res_right)
+     
+    def visitImplyExpr(self, ctx):
+        print ('Visiting ImplyExpr (->) ')
+        res_left = self.visit(ctx.expr(0))
+        res_right = self.visit(ctx.expr(1))
+        return Then(res_left, res_right)
         
     def visitBiconditionalExpr(self, ctx):
         print ('Visiting BiconditionalExpr (<->) ')

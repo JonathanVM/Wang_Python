@@ -36,3 +36,25 @@
 </div>
 </body>
 </html>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+	axios.get('http://localhost:8000/requestAPI/4/')
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+  
+ axios.post('http://localhost:8000/requestAPI/', {
+	data: {
+    expresion: 'p->q,q->r,r->s => s.'
+	}
+  })
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+</script>

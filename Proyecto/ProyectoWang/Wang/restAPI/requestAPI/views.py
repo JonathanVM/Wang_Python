@@ -16,6 +16,5 @@ class PruebasAPIDetail(generics.RetrieveUpdateDestroyAPIView):
 class PruebasAPIAllView(generics.ListAPIView):
     queryset = Pruebas.objects.all()
     serializer_class = PruebasSerializer
-    
 
 # Create your views here.

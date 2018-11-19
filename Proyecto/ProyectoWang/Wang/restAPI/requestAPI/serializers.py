@@ -22,6 +22,7 @@ class PruebasSerializer(serializers.ModelSerializer):
         expre = data['expresion']
         print(f">>>expresion {expre}")
         result = deductionParser(expre)
+        print(result)
         for i in range(len(result)):
             arbolDeduction = DeductionTree()
             salidaArbol = arbolDeduction.buildTree(result[i])

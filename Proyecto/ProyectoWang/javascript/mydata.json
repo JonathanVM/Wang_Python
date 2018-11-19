@@ -1,0 +1,15 @@
+{
+    "RuleType": "RuleType.OR_LEFT",
+    "pos": 0, 
+    "deduction": "q | r => q", 
+    "children":[{
+            
+                "RuleType": "RuleType.AXIOM", 
+                "pos": 0, 
+                "posRight": "0", 
+                "deduction": "q => q"
+                
+               }
+            
+            ]    
+}

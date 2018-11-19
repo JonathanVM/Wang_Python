@@ -17,6 +17,7 @@ class PruebasSerializer(serializers.HyperlinkedModelSerializer):
         read_only_fields = ('respuesta',)
         
     def create(self, data):
+        print('Llega')
         print(f">>>probador {data}")
         expre = data['expresion']
         print(f">>>expresion {expre}")

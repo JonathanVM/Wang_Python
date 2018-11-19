@@ -38,12 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'requestAPI',
-    'corsheaders'
+    'requestAPI'
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -102,18 +100,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
-CORS_ORIGIN_WHITELIST = 'localhost:8080/consulta'
-
-CORS_ALLOW_METHODS  = (
-    'DELETE',
-    'GET',
-    'OPTIONS',
-    'PATCH',
-     'POST',
-     'PUT',
-)
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/

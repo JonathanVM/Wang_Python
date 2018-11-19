@@ -47,9 +47,7 @@
   });
   
  axios.post('http://localhost:8000/requestAPI/', {
-	data: {
-    expresion: 'p->q,q->r,r->s => s.'
-	}
+	"expresion": "p->q,q->r,r->s => s."
   })
   .then(function (response) {
     console.log(response);

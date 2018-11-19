@@ -31,19 +31,25 @@ class DeductionTree:
         try:
             child = next(self.evaluateDeduction(deduction))
             if child[0] == RuleType.AXIOM:
-                #return "{" + f"'RuleType':'{child[0]}', 'posLeft':{child[1]}, 'posRight':{child[2]}, 'deduction':{child[3]}" + "}"
-                return "{" + '"RuleType": "{}" "posLeft": {}, "posRight":{}, "deduction":"{}"'.format(child[0], child[1], child[2], child[3]) + "}"
-            string = "{" + f"'RuleType':{child[0]}, 'pos':{child[1]}, 'deduction':{deduction}, "
+                #return {"RuleType":self.stringRule(child[0]), "posLeft":child[1], "posRight":child[2], "deduction": str(child[3])}
+
+                return "{" + f"'RuleType':'{self.stringRule(child[0])}', 'posLeft':{child[1]}, 'posRight':{child[2]}, 'deduction':[{child[3].left}, {child[3].right}]" + "}"
+                #return '{' + '"RuleType": "{}" "posLeft": {}, "posRight":{}, "deduction":"{}"'.format(child[0], child[1], child[2], child[3]) + '}'
+            string = "{" + f"'RuleType':{self.stringRule(child[0])}, 'pos':{child[1]}, 'deduction':[{child[2].left}, {child[2].right}], 'hijos':[{self.buildTree(child[2])}"
+
             if child[0] == RuleType.AND_RIGHT or child[0] == RuleType.OR_LEFT:
-                return string + f"'hijos':['left':{self.buildTree(child[2])}, 'right':{self.buildTree(child[3])}]" + "}"
-            return string + f"'hijos':['left':{self.buildTree(child[2])}, 'right':{None}]" + "}"
-                #return Nodo((child[0], child[1], deduction), self.buildTree(child[2]), self.buildTree(child[3]))
+                #return {"RuleType":self.stringRule(child[0]), "pos":child[1], "deduction": str(deduction), "hijos": [{self.buildTree(child[2])}, {self.buildTree(child[3])}]}
+                return string + f", {self.buildTree(child[3])}]" + "}"
+
+            #return {"RuleType":self.stringRule(child[0]), "pos": child[1], "deduction": str(deduction), "hijos": [{self.buildTree(child[2])}]}
+
+            return string + "]}"
+
         except StopIteration:
-            return None
+            return ""
     def pipe(self, current, *iterables):
         for n in iterables:
             yield from n(current)
-
     evaluateDeduction = lambda self, current: self.pipe(
         current,
         AXIOM_RULE.apply,
@@ -56,7 +62,18 @@ class DeductionTree:
         NOT_LEFT_RULE.apply,
         NOT_RIGHT_RULE.apply,
     )
-
+    def stringRule(self, rule):
+        return {
+            RuleType.AXIOM: "AXIOM",
+            RuleType.AND_RIGHT: "AND RIGHT",
+            RuleType.AND_LEFT: "AND LEFT",
+            RuleType.OR_RIGHT: "OR RIGHT",
+            RuleType.OR_LEFT: "OR LEFT",
+            RuleType.NOT_RIGHT: "NOT RIGHT",
+            RuleType.NOT_LEFT: "NOT LEFT",
+            RuleType.EQUIV: "EQUIV",
+            RuleType.TWO_THEN: "BICONDITIONAL",
+        }[rule]
 
 if __name__ == "__main__":
     print("*** Testing deductionTree ***")
@@ -75,8 +92,8 @@ if __name__ == "__main__":
     qp = Then(q, p)
     c = Then(p, z)
     ded = Deduction([np, qp], [npnq])
-
     DEDUCTION_TREE = DeductionTree()
+    print(DEDUCTION_TREE.stringRule(qp.kind))
     """prueba_eval = DEDUCTION_TREE.evaluateDeduction(ded)
     print(f"Original: {ded}")
     print(f"Evaluado1: {next(prueba_eval)}")"""

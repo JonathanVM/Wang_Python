@@ -10,10 +10,10 @@ from wang import *
 from deduction import *
 from deductionTree import *
 
-class PruebasSerializer(serializers.HyperlinkedModelSerializer):
+class PruebasSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pruebas
-        fields = ('id','url','expresion','respuesta')
+        fields = ('id','expresion','respuesta')
         read_only_fields = ('respuesta',)
         
     def create(self, data):

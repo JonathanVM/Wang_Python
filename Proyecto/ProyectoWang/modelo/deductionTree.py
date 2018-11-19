@@ -31,14 +31,13 @@ class DeductionTree:
         try:
             child = next(self.evaluateDeduction(deduction))
             if child[0] == RuleType.AXIOM:
-                return "{" + f"'RuleType':{child[0]}, 'posLeft':{child[1]}, 'posRight':{child[2]}, 'deduction':{child[3]}, 'hijos':['left':{None}, 'right':{None}]" + "}\n"
-                #return Nodo(child)
+                #return "{" + f"'RuleType':'{child[0]}', 'posLeft':{child[1]}, 'posRight':{child[2]}, 'deduction':{child[3]}" + "}"
+                return "{" + '"RuleType": "{}" "posLeft": {}, "posRight":{}, "deduction":"{}"'.format(child[0], child[1], child[2], child[3]) + "}"
             string = "{" + f"'RuleType':{child[0]}, 'pos':{child[1]}, 'deduction':{deduction}, "
             if child[0] == RuleType.AND_RIGHT or child[0] == RuleType.OR_LEFT:
-                return string + f"'hijos':['left':{self.buildTree(child[2])}, 'right':{self.buildTree(child[3])}]" + "}\n"
-            return string + f"'hijos':['left':{self.buildTree(child[2])}, 'right':{None}]" + "}\n"
+                return string + f"'hijos':['left':{self.buildTree(child[2])}, 'right':{self.buildTree(child[3])}]" + "}"
+            return string + f"'hijos':['left':{self.buildTree(child[2])}, 'right':{None}]" + "}"
                 #return Nodo((child[0], child[1], deduction), self.buildTree(child[2]), self.buildTree(child[3]))
-            #return Nodo((child[0], child[1], deduction), self.buildTree(child[2]), None)
         except StopIteration:
             return None
     def pipe(self, current, *iterables):
@@ -76,6 +75,7 @@ if __name__ == "__main__":
     qp = Then(q, p)
     c = Then(p, z)
     ded = Deduction([np, qp], [npnq])
+
     DEDUCTION_TREE = DeductionTree()
     """prueba_eval = DEDUCTION_TREE.evaluateDeduction(ded)
     print(f"Original: {ded}")

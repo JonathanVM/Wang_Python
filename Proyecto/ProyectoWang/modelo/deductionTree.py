@@ -36,9 +36,9 @@ class DeductionTree:
                 
             if child[0] == RuleType.EQUIV or child[0] == RuleType.TWO_THEN:
                 #return {"RuleType":self.stringRule(child[0]), "posLeft":child[1], "posRight":child[2], "deduction": str(child[3])}
-                return '{' + f'"RuleType":"{self.stringRule(child[0])}", "posLeft":{child[1]}, "posRight":{child[2]}, "deduction":"{deduction}", "hijos":[{self.buildTree(child[3])}' + ']}'
+                return '{' + f'"RuleType":"{self.stringRule(child[0])}", "posLeft":{child[1]}, "posRight":{child[2]}, "deduction":"{deduction}", "children":[{self.buildTree(child[3])}' + ']}'
                 #return '{' + '"RuleType": "{}" "posLeft": {}, "posRight":{}, "deduction":"{}"'.format(child[0], child[1], child[2], child[3]) + '}'
-            string = '{' + f'"RuleType":"{self.stringRule(child[0])}", "pos":{child[1]}, "deduction":"{deduction}", "hijos":[{self.buildTree(child[2])}'
+            string = '{' + f'"RuleType":"{self.stringRule(child[0])}", "pos":{child[1]}, "deduction":"{deduction}", "children":[{self.buildTree(child[2])}'
 
             if child[0] == RuleType.AND_RIGHT or child[0] == RuleType.OR_LEFT:
                 #return {"RuleType":self.stringRule(child[0]), "pos":child[1], "deduction": str(deduction), "hijos": [{self.buildTree(child[2])}, {self.buildTree(child[3])}]}

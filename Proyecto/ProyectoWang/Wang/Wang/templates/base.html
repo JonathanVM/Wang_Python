@@ -14,7 +14,7 @@
         </header>
         <div class="container">
             <br>
-            <h1>Bienvenido a Nuestro Probador Logico Wang</h1>
+            <h1>Bienvenido, Probador Lógico Wang</h1>
             <hr class="mb-4">
             <div class="row">
                 <div class="col-md-6 mb-3">
@@ -38,7 +38,7 @@
 						</div>
 						<div class="col-md-11 mb-3">
 							<h5 class="text-center">Arbol de prueba</h5>
-							<div class="alert alert-success" id="divRespuesta">
+							<div id="divRespuesta">
 							
 							</div>
 						</div>
@@ -73,7 +73,6 @@
 							
 							divR = document.getElementById("divRespuesta");
 							showTree(datosJSON, divR);
-							divR.innerText = datos;
                         })
                         .catch(function (error) {
                             console.log(error);
@@ -83,6 +82,7 @@
                 let viz = new Viz();
                 viz.renderSVGElement('digraph T { node [shape=rectangle,color=black];' + buildStringTree(data) + '}')
                     .then(function (element) {
+                            div.innerHTML = "";
                             div.appendChild(element);
                         })
                         .catch(error => {

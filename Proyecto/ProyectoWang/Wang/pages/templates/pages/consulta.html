@@ -15,8 +15,8 @@
     <table>
         {{form.as_table}}
         <tr>
-            <td>&nbsp;</td>
-            <td><input type="submit" value="Enviar"></td>
+            <td>&nbsp;</td>      
+            <td><input type="button" value="Enviar" onclick='enviarPruebaLogica()'></td>
         </tr>
     </table>
     {% csrf_token%}

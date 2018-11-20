@@ -38,21 +38,23 @@
 </html>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
-	axios.get('http://localhost:8000/requestAPI/4/')
-  .then(function (response) {
-    console.log(response);
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
+	var datos = ""
+  function enviarPruebaLogica(){
+	prueba = document.getElementById("id_cadena").value;
+	axios.post('http://localhost:8000/requestAPI/', {
+	"expresion": prueba
+	})
+	.then(function (response) {
+		datos = response.data
+		console.log(response.data);
+	})
+	.catch(function (error) {
+		console.log(error);
+	});
+  }
   
- axios.post('http://localhost:8000/requestAPI/', {
-	"expresion": "p->q,q->r,r->s => s."
-  })
-  .then(function (response) {
-    console.log(response);
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
+  alert(datos)
+  
+  
+ 
 </script>

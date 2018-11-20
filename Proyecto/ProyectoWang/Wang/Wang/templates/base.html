@@ -38,22 +38,22 @@
 </html>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
-	var datos = ""
   function enviarPruebaLogica(){
 	prueba = document.getElementById("id_cadena").value;
 	axios.post('http://localhost:8000/requestAPI/', {
 	"expresion": prueba
 	})
 	.then(function (response) {
-		datos = response.data
+		datos = response.data.respuesta
+		
+		datosJSON = JSON.parse(datos)
+		
 		console.log(response.data);
 	})
 	.catch(function (error) {
 		console.log(error);
 	});
   }
-  
-  alert(datos)
   
   
  

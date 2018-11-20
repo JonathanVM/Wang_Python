@@ -32,26 +32,29 @@ class DeductionTree:
             child = next(self.evaluateDeduction(deduction))
             if child[0] == RuleType.AXIOM:
                 #return {"RuleType":self.stringRule(child[0]), "posLeft":child[1], "posRight":child[2], "deduction": str(child[3])}
-                return "{" + f"'RuleType':'{self.stringRule(child[0])}', 'posLeft':{child[1]}, 'posRight':{child[2]}, 'deduction':[{child[3].left}, {child[3].right}]" + "}"
+                return '{' + f'"RuleType":"{self.stringRule(child[0])}", "posLeft":{child[1]}, "posRight":{child[2]}, "deduction":[{self.parserSecString(deduction.left)}, {self.parserSecString(deduction.right)}]' + '}'
                 
             if child[0] == RuleType.EQUIV or child[0] == RuleType.TWO_THEN:
                 #return {"RuleType":self.stringRule(child[0]), "posLeft":child[1], "posRight":child[2], "deduction": str(child[3])}
-                return "{" + f"'RuleType':'{self.stringRule(child[0])}', 'posLeft':{child[1]}, 'posRight':{child[2]}, 'deduction':[{child[3].left}, {child[3].right}], 'hijos':[{self.buildTree(child[3])}" + "]}"
+                return '{' + f'"RuleType":"{self.stringRule(child[0])}", "posLeft":{child[1]}, "posRight":{child[2]}, "deduction":[{self.parserSecString(deduction.left)}, {self.parserSecString(deduction.right)}], "hijos":[{self.buildTree(child[3])}' + ']}'
                 #return '{' + '"RuleType": "{}" "posLeft": {}, "posRight":{}, "deduction":"{}"'.format(child[0], child[1], child[2], child[3]) + '}'
-            string = "{" + f"'RuleType':{self.stringRule(child[0])}, 'pos':{child[1]}, 'deduction':[{child[2].left}, {child[2].right}], 'hijos':[{self.buildTree(child[2])}"
+            string = '{' + f'"RuleType":"{self.stringRule(child[0])}", "pos":{child[1]}, "deduction":[{self.parserSecString(deduction.left)}, {self.parserSecString(deduction.right)}], "hijos":[{self.buildTree(child[2])}'
 
             if child[0] == RuleType.AND_RIGHT or child[0] == RuleType.OR_LEFT:
                 #return {"RuleType":self.stringRule(child[0]), "pos":child[1], "deduction": str(deduction), "hijos": [{self.buildTree(child[2])}, {self.buildTree(child[3])}]}
-                return string + f", {self.buildTree(child[3])}]" + "}"
+                return string + f', {self.buildTree(child[3])}]' + '}'
             #return {"RuleType":self.stringRule(child[0]), "pos": child[1], "deduction": str(deduction), "hijos": [{self.buildTree(child[2])}]}
 
-            return string + "]}"
+            return string + ']}'
 
         except StopIteration:
             return ""
     def pipe(self, current, *iterables):
         for n in iterables:
             yield from n(current)
+    def parserSecString(self, secuence):
+         return list(map(lambda x: str(x).replace("), secuence))
+    
     evaluateDeduction = lambda self, current: self.pipe(
         current,
         AXIOM_RULE.apply,

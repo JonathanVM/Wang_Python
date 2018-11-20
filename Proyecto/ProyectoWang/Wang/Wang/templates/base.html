@@ -1,69 +1,82 @@
 {% load static %}
+
 <!doctype html>
 <html>
-<head>
-<meta charset="utf-8">
-<title>
-    {%block title%}
-        Untitled Document
-     {%endblock title%}
-</title>
-<link href="{% static 'main.css' %}" rel="stylesheet" type="text/css">
-</head>
-<body>
-<div id="wrapper">
-  <header id="header">
-    <div id="logo"><img src="{% static 'logo.jpg' %}" alt=""/></div>
-    <div id="topbanner"><img src="{% static 'top_banner.png' %}" width="800" height="200" alt=""/></div>    
-  </header>
-  <aside id="leftsidebar">
-    <nav id="nav">
-    <ul>
-        {%block sidenav%}
-        <li>Menu 1</li><li>Menu 2</li>
-        {%endblock sidenav%}
-        <li><a href="/consulta">Consulta</a></li>
-    </ul>
-    </nav>
-  </aside>
-  <section id="main">
-    {% block content %}
-    <h1>Welcome!</h1>
-    <p>This is the site template</p>
-    {% endblock content %}
-  </section>
-  <footer id="footer">Copyright &copy; 2017 Meandco Web Design</footer>
-</div>
-</body>
+    <head>
+        <meta charset="utf-8">
+        <title>Probador Wang</title>
+        <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+        <link href="{% static 'favicon.png' %}" rel="shortcut icon">
+    </head>
+    <body>
+        <header id="header">
+            <img style="width: 100%; height:100px;" src="{% static 'Logo2.png' %}" alt=""/>
+        </header>
+        <div class="container">
+            <br>
+            <h1>Bienvenido a Nuestro Probador Logico Wang</h1>
+            <hr class="mb-4">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <form action="javascript:enviarPruebaLogica();">
+						<label for="idExpresion">Digite la expresion:</label>
+                        <div class="row">
+                            <div class="col-md-9 mb-3">
+                                <input type="text" class="form-control" id="idExpresion" maxlength="50" autocomplete="off" required>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <input type="submit" class="btn btn-success" value="Enviar">
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-6 mb-3">
+					<div class="row">
+						<div class="col-md-1 mb-3">
+							<div style="border-left: 6px solid green;height: 500px;"></div>
+						</div>
+						<div class="col-md-11 mb-3">
+							<h5 class="text-center">Arbol de prueba</h5>
+							<div class="alert alert-success" id="divRespuesta">
+							
+							</div>
+						</div>
+					</div>
+                </div>
+            </div>
+        </div>
+        <footer id="footer"></footer>
+
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script>
+            function enviarPruebaLogica() {
+                prueba = document.getElementById("idExpresion").value;
+                axios.post('http://localhost:8000/requestAPI/', {
+                    "expresion": prueba
+                })
+                        .then(function (response) {
+                            datos = response.data.respuesta
+
+                            datosJSON = JSON.parse(datos)
+
+                            deduccion = datosJSON.deduction
+                            array = deduccion.split(" => ")
+
+                            izq = array[0].split(", ")
+
+                            der = "".split(", ")
+							
+							divR = document.getElementById("divRespuesta");
+							
+							divR.innerText = datos;
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+            }
+
+        </script>
+    </body>
 </html>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script>
-  function enviarPruebaLogica(){
-	prueba = document.getElementById("id_cadena").value;
-	axios.post('http://localhost:8000/requestAPI/', {
-	"expresion": prueba
-	})
-	.then(function (response) {
-		datos = response.data.respuesta
-		
-		datosJSON = JSON.parse(datos)
-		
-		deduccion = datosJSON.deduction
-		//prueba = "s<->s,s => s->s"
-		
-		array = deduccion.split(" => ")
-		
-		izq = array[0].split(", ")
-		
-		der = "".split(", ")
-		
-		console.log(response.data);
-	})
-	.catch(function (error) {
-		console.log(error);
-	});
-  }
-  
-  
- 
-</script>
+

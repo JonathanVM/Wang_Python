@@ -42,8 +42,6 @@ class Axiom(Rule):
         super().__init__(RuleType.AXIOM)
     def apply(self, deduction):
         for (pi, p) in enumerate(deduction.left):
-            #if p in deduction.right:
-
             for (pd, q) in enumerate(deduction.right):
                 if q == p:
                     yield (self.kind, pi, pd, deduction)
@@ -130,11 +128,11 @@ class Equiv(Rule):
         for (p, f) in enumerate(deduction.left):
             if isinstance(f, Then):
                 newleft = utils.replace(deduction.left, p, [Or(Not(f.left), f.right)])
-                yield (self.kind, p, Deduction(list(newleft), deduction.right))
+                yield (self.kind, p, -1, Deduction(list(newleft), deduction.right))
         for (p, f) in enumerate(deduction.right):
             if isinstance(f, Then):
                 newRight = utils.replace(deduction.right, p, [Or(Not(f.left), f.right)])
-                yield (self.kind, p, Deduction(deduction.left, list(newRight)))
+                yield (self.kind, -1, p, Deduction(deduction.left, list(newRight)))
 
 EQUIV_RULE = Equiv()
 
@@ -145,11 +143,11 @@ class Iff(Rule):
         for (p, f) in enumerate(deduction.left):
             if isinstance(f, Biconditional):
                 newleft = utils.replace(deduction.left, p, [And(Then(f.left, f.right), Then(f.right, f.left))])
-                yield (self.kind, p, Deduction(list(newleft), deduction.right))
+                yield (self.kind, p, -1, Deduction(list(newleft), deduction.right))
         for (p, f) in enumerate(deduction.right):
             if isinstance(f, Biconditional):
                 newRight = utils.replace(deduction.right, p, [And(Then(f.left, f.right), Then(f.right, f.left))])
-                yield (self.kind, p, Deduction(deduction.left, list(newRight)))
+                yield (self.kind, -1, p, Deduction(deduction.left, list(newRight)))
 
 IFF_RULE = Iff()
 

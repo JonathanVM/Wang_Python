@@ -48,7 +48,7 @@ class DeductionTree:
             return string + ']}'
 
         except StopIteration:
-            return ""
+            return '{' + f'"deduction":"{deduction}", "children":[]' + '}'
     def pipe(self, current, *iterables):
         for n in iterables:
             yield from n(current)

@@ -49,7 +49,11 @@
         <footer id="footer"></footer>
 
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="{% static 'viz.js' %}"></script>
+        <script src="{% static 'full.render.js' %}"></script>
         <script>
+            var axiomNumber = 1;
+            var errorNumber = 1;
             function enviarPruebaLogica() {
                 prueba = document.getElementById("idExpresion").value;
                 axios.post('http://localhost:8000/requestAPI/', {
@@ -68,14 +72,55 @@
                             der = "".split(", ")
 							
 							divR = document.getElementById("divRespuesta");
-							
+							showTree(datosJSON, divR);
 							divR.innerText = datos;
                         })
                         .catch(function (error) {
                             console.log(error);
                         });
             }
-
+            function showTree(data, div){
+                let viz = new Viz();
+                viz.renderSVGElement('digraph T { node [shape=rectangle,color=black];' + buildStringTree(data) + '}')
+                    .then(function (element) {
+                            div.appendChild(element);
+                        })
+                        .catch(error => {
+                            viz = new Viz();
+                            console.error(error);
+                        });         
+                axiomNumber = errorNumber = 1; 
+            }
+            function buildStringTree(data) {
+                let ded = data.deduction.split(" => ");
+                let left = ded[0].split(", ");
+                let right = ded[1].split(", ");
+                let string = '';
+                if(data.RuleType === "AXIOM"){
+                    let axiomNode = '"' + axiomNumber + '. AXIOM: ' + left[data.posLeft] + '"[shape=tripleoctagon, color=green];';
+                    return axiomNode + '"' + data.deduction + '"->"' + axiomNumber++ +'. AXIOM: ' + left[data.posLeft] + '";';  
+                }
+                else if(data.children.length === 0){
+                    let notProvenNode = '"' + errorNumber + '. NOT PROVEN: ' + data.deduction + '"[shape=octagon, color=red];';
+                    return notProvenNode + '"' + data.deduction + '"->"' + errorNumber++ +'. NOT PROVEN: ' + data.deduction + '";'; 
+                } else {
+                    for(let child of data.children){
+                        if(data.RuleType === "EQUIV" || data.RuleType === "BICONDITIONAL"){
+                            let changes = (data.posLeft !== -1 ? left[data.posLeft] : right[data.posRight]);
+                            string += '"' + data.deduction + '"->"' + child.deduction + '"[label="   ' + data.RuleType + ': ' + changes + '"];';
+                            string += buildStringTree(child);
+                        } else {
+                            let changes = (isLeft(data.RuleType)? left[data.pos] : right[data.pos]);  
+                            string += '"' + data.deduction + '"->"' + child.deduction + '"[label="   ' + data.RuleType + ': ' + changes + '"];';
+                            string += buildStringTree(child);
+                        }
+                    }
+                }
+                return string;  
+            }
+            function isLeft(rule) {
+                return (rule === "OR LEFT" || rule === "AND LEFT" || rule === "NOT LEFT");
+            }
         </script>
     </body>
 </html>

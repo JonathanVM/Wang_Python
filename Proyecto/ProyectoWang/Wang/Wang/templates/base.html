@@ -48,6 +48,15 @@
 		
 		datosJSON = JSON.parse(datos)
 		
+		deduccion = datosJSON.deduction
+		//prueba = "s<->s,s => s->s"
+		
+		array = deduccion.split(" => ")
+		
+		izq = array[0].split(", ")
+		
+		der = "".split(", ")
+		
 		console.log(response.data);
 	})
 	.catch(function (error) {

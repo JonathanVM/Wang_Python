@@ -93,8 +93,11 @@
         <script src="{% static 'full.render.js' %}"></script>
         
         <script>
+			let estado = false;
             function seeTable(){
-				document.getElementById('divTable').style.display = "" ;
+				let div = document.getElementById('divTable');
+				estado = !estado;
+				(estado)? div.style.display = "" : div.style.display = "none";
 			}
 
 			function treeInfo2(value, row, index){

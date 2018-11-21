@@ -65,7 +65,7 @@
 									<tr>
 										<th scope="col" data-field="id" data-width="10%"><center>#</center></th>
 										<th scope="col" data-field="expresion" data-width="70%"><center>Expression</center></th>
-										<th scope="col" data-formatter="treeInfo2" data-width="20%"><center>Test</center></th>
+										<th scope="col" data-formatter="btnShowTree" data-width="20%"><center>Test</center></th>
 									</tr>
 								</thead>
 							</table>
@@ -99,12 +99,12 @@
         
         <script>
 
-			function treeInfo2(value, row, index){
-				var string = "<button type='button' id ='" + row.id + "' class='btn btn-sm btn-danger btn-block' onclick='TreeSee('');'>View</button>";
+			function btnShowTree(value, row, index){
+				var string = "<button type='button' id ='" + row.id + "' class='btn btn-sm btn-danger btn-block' onclick='showTree('');'>View</button>";
                 return string;
 			}
 			
-			function TreeSee(answer){
+			function showTree(answer){
 				console.log('delia');
 			}
 			

@@ -21,7 +21,7 @@
         <link href="{% static 'css/bootstrap-table.min.css' %}" rel="stylesheet"  type="text/css">
         
     </head>
-    <body onload="cargarTabla()">
+    <body onload="getproofs()">
         <header id="header">
             <img style="width: 100%; height:80px;" src="{% static 'Logo3.png' %}" alt=""/>
         </header>
@@ -64,58 +64,13 @@
 
                         </div>
                     </form>
-                                    
+					<hr class="m4">
                     <div>
-                        <table id="example" class="table table-striped table-bordered" style="width:100%">
-                            <br><br>
-                            <thead>
-                                <tr>
-                                    <th data-width="20%"><center>#</center></th>
-                                    <th data-width="60%"><center>Expression</center></th>
-                                    <th data-width="20%"><center>See test</center></th>
-                                </tr>
-                            </thead>
-                            <tbody id="info">
-                                <tr> <td>1</td><td>Accountant</td><td>Tokyo</td> </tr>
-                                <tr> <td>2</td><td>Accountant</td><td>Tokyo</td> </tr>
-                                <tr> <td>3</td><td>Accountant</td><td>Tokyo</td> </tr>
-                                <tr> <td>4</td><td>Accountant</td><td>Tokyo</td> </tr>
-                                <tr> <td>5</td><td>Accountant</td><td>Tokyo</td> </tr>
-                                <tr> <td>6</td><td>Accountant</td><td>Tokyo</td> </tr>
-                                <tr> <td>7</td><td>Accountant</td><td>Tokyo</td> </tr>
-                                <tr> <td>8</td><td>Accountant</td><td>Tokyo</td> </tr>
-                                <tr> <td>9</td><td>Accountant</td><td>Tokyo</td> </tr>
-                                <tr> <td>10</td><td>Accountant</td><td>Tokyo</td> </tr>
-                                <tr> <td>11</td><td>Accountant</td><td>Tokyo</td> </tr>
-                                <tr> <td>12</td><td>Accountant</td><td>Tokyo</td> </tr>
-                                <tr> <td>13</td><td>Accountant</td><td>Tokyo</td> </tr>
-                                <tr> <td>14</td><td>Accountant</td><td>Tokyo</td> </tr>
-                                <tr> <td>15</td><td>Accountant</td><td>Tokyo</td> </tr>
-                                <tr> <td>16</td><td>Accountant</td><td>Tokyo</td> </tr>
-                                <tr> <td>17</td><td>Accountant</td><td>Tokyo</td> </tr>
-                                <tr> <td>18</td><td>Accountant</td><td>Tokyo</td> </tr>
-                                <tr> <td>19</td><td>Accountant</td><td>Tokyo</td> </tr>
-                                <tr> <td>20</td><td>Accountant</td><td>Tokyo</td> </tr>
-                                <tr> <td>21</td><td>Accountant</td><td>Tokyo</td> </tr>
-                                <tr> <td>22</td><td>Accountant</td><td>Tokyo</td> </tr>
-                                <tr> <td>23</td><td>Accountant</td><td>Tokyo</td> </tr>
-                                <tr> <td>24</td><td>Accountant</td><td>Tokyo</td> </tr>
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th><center>Id</center></th>
-                                    <th><center>Expresion</center></th>
-                                    <th><center>ver</center></th>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-                    <div>
-                        <table id="tblData" data-toggle="table" data-pagination="true" search="true" searchOnEnterKey="true" sortStable="true" data-height="428" data-page-size="10" data-page-list="[5, 10, 25, 50, 100]" data-striped="true">
+                        <table id="tblData" data-toggle="table" data-pagination="true" data-search="true" searchOnEnterKey="true" sortStable="true" data-height="428" data-page-size="10" data-page-list="[5, 10, 25, 50, 100]" data-striped="true">
                             <thead>
                                 <tr>
                                     <th scope="col" data-field="id" data-width="10%"><center>#</center></th>
-                                    <th scope="col" data-field="expression" data-width="60%"><center>Expression</center></th>
+                                    <th scope="col" data-field="expresion" data-width="60%"><center>Expression</center></th>
                                     <th scope="col" data-formatter="treeInfo" data-width="30%"><center>See test</center></th>
                                 </tr>
                             </thead>
@@ -149,30 +104,41 @@
         <script src="{% static 'full.render.js' %}"></script>
         
         <script>
-            $(document).ready(function() {
-                $('#example').DataTable();
-            });
+            
             function cargarTabla(){
                 data = [{"id":0, "expression":"abc", "otrasInfoNoimporta": 3}, 
                 {"id":1, "expression":"abc", "otrasInfoNoimporta": 3, "respuesta": "eljson"}, 
                 {"id":2, "expression":"abc", "otrasInfoNoimporta": 3, "respuesta": "eljson"},
                 {"id":3, "expression":"abc", "otrasInfoNoimporta": 3, "respuesta": "eljson"},
-                {"id":4, "expression":"abc", "otrasInfoNoimporta": 3, "respuesta": "eljson"},
+                {"id":4, "expression":"erick", "otrasInfoNoimporta": 3, "respuesta": "eljson"},
                 {"id":5, "expression":"abc", "otrasInfoNoimporta": 3, "respuesta": "eljson"},
-                {"id":6, "expression":"abc", "otrasInfoNoimporta": 3, "respuesta": "eljson"},
+                {"id":6, "expression":"abc", "otrasInfoNoimporta": 3, "respuesta": "funciona"},
                 {"id":7, "expression":"abc", "otrasInfoNoimporta": 3, "respuesta": "eljson"},
                 {"id":8, "expression":"abc", "otrasInfoNoimporta": 3, "respuesta": "eljson"},
-                {"id":9, "expression":"abc", "otrasInfoNoimporta": 3, "respuesta": "eljson"},
+                {"id":9, "expression":"jonathan", "otrasInfoNoimporta": 3, "respuesta": "eljson"},
                 {"id":10, "expression":"abc", "otrasInfoNoimporta": 3, "respuesta": "eljson"},
                 {"id":11, "expression":"abc", "otrasInfoNoimporta": 3, "respuesta": "eljson"},
                 {"id":12, "expression":"abc", "otrasInfoNoimporta": 3, "respuesta": "eljson"},
                 {"id":13, "expression":"abc", "otrasInfoNoimporta": 3, "respuesta": "eljson"},
                 {"id":14, "expression":"abc", "otrasInfoNoimporta": 3, "respuesta": "eljson"},
-                {"id":15, "expression":"abc", "otrasInfoNoimporta": 3, "respuesta": "eljson"},
-                {"id":16, "expression":"abc", "otrasInfoNoimporta": 3, "respuesta": "eljson"}]
-                
+                {"id":15, "expression":"abc", "otrasInfoNoimporta": 3, "respuesta": "genial"},
+                {"id":16, "expression":"delia", "otrasInfoNoimporta": 3, "respuesta": "eljson"}]
+                console.log("yo soy rn undifien" + getproofs());
                 $('#tblData').bootstrapTable('load', data);
             }
+			
+			
+			function getproofs(){
+				axios.get('http://localhost:8000/requestAPI/all/')
+				.then(function (response) {
+					console.log(response.data);
+					$('#tblData').bootstrapTable('load', response.data);
+				})
+				.catch(function (error) {
+					console.log(error);
+				});
+			}
+			
             function treeInfo(value, row, index){
                 string = row.respuesta;
                 return string;

@@ -39,14 +39,8 @@ class WangPrintVisitor(WangVisitor):
         
     def visitFormExpr(self, ctx):
         res_premises = self.visit(ctx.premises())
-        print(f" Conclusiones: {ctx.conclusions()}")
-        res_conclusions = self.visit(ctx.conclusions())
-        #Verificar si premisas esta vacia
-        if not res_premises:
-            return Deduction([],res_conclusions)
-        elif not res_conclusions:
-            return Deduction(res_premises)
-        return Deduction(res_premises, res_conclusions)
+        res_conclusions = self.visit(ctx.conclusions()) if ctx.conclusions() else []
+        return Deduction(res_premises, res_conclusions) if res_premises else Deduction([],res_conclusions)
     
     def visitSeqExpr(self, ctx):
         print(f'Visiting SeqExpr (,) with {len(ctx.expr())} children')

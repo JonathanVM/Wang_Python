@@ -59,7 +59,6 @@ class Formula:
         if oper.arity == 2:
             left_str = f"{met(self.left)}"
             right_str = f"{met(self.right)}"
-            #print("**", oper, left_str, right_str)
             left_str = f"({left_str})" if oper > self.left.oper else left_str
             right_str = f"({right_str})" if oper >= self.right.oper else right_str
             return f"{left_str} {oper} {right_str}"

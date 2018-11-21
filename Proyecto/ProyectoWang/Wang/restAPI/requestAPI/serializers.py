@@ -20,20 +20,13 @@ class PruebasSerializer(serializers.ModelSerializer):
         expre = data['expresion']
         try:
             result = deductionParser(expre)
-            print(f"Posicion 0: {result[0]}")
+            print(f"Position 0: {result[0]}")
             for i in range(len(result)):
                 arbolDeduction = DeductionTree()
                 salidaArbol = arbolDeduction.buildTree(result[i])
-                print(salidaArbol)
                 data['respuesta'] = salidaArbol
-            return super().create(data)
-        except IndexError:
-            print('entro, expresion invalida')
-            data['respuesta'] = "Expresión invalida"
-            return super().create(data)
-        except SystemExit:
-            print('entro, expresion invalida')
-            data['respuesta'] = "Expresión invalida"
-            return super().create(data)
+        except (IndexError, SystemExit):
+            data['respuesta'] = "Invalid Expression"
+        return super().create(data)
         
     

@@ -29,13 +29,13 @@
 								<li> BICONDITIONAL <span class="text-danger"> "<->" </span></li>
 								<li> AND RIGHT <span class="text-danger"> "=> &" </span></li>
 								<li> OR LEFT <span class="text-danger"> "| =>" </span></li>
-								<li> NOT LEFT <span class="text-danger"> "-p =>" </span></li>
-								<li> NOT RIGHT <span class="text-danger"> " => -p" </span></li>
+								<li> NOT LEFT <span class="text-danger"> "~p =>" </span></li>
+								<li> NOT RIGHT <span class="text-danger"> " => ~p" </span></li>
 								<li> END THE EXPRESSION WITH A <span class="text-danger"> "." </span></li>
 								<li> EXAMPLES:
 									<ul>
-										<li>p1 -> p => (q & r), p. <span class="text-success"> RIGHT </span></li>
-										<li>p1 -> q => (<span class="text-danger">1</span> & <span class="text-danger">2</span>), <span class="text-danger">Q</span>. <span class="text-danger"> WRONG </span></li>
+										<li><span class="text-success"> RIGHT:   </span> p1 -> p => (q & r), p. </li>
+										<li><span class="text-danger"> WRONG: </span> p1 -> q => (<span class="text-danger">1</span> & <span class="text-danger">2</span>), <span class="text-danger">Q</span>. </li>
 									</ul>
 								</li>
 							</ul>
@@ -68,8 +68,7 @@
             </div>
         </div>
         <footer id="footer"></footer>
-
-        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="{% static 'axios.min.js'%}"></script>
         <script src="{% static 'viz.js' %}"></script>
         <script src="{% static 'full.render.js' %}"></script>
         <script>

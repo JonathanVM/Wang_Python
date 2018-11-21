@@ -1,9 +1,31 @@
+"""
+autores:
+    Delia Hernandez Ruiz
+    Jonathan Vasquez Mora
+    Erick Hernandez Camacho
+"""
+
+
 from deduction import *
 from proof import *
 
 class DeductionTree:
     def __init__(self):
         pass
+        
+    def x(self, key):
+        options = {
+            RuleType.AXIOM: "AXIOMMMMMM",
+            RuleType.AND_RIGHT: "AND",
+            RuleType.OR_LEFT: "split",
+            RuleType.AND_LEFT: "AND",
+            RuleType.OR_RIGHT: "ERER", 
+            RuleType.NOT_RIGHT: "ER",
+            RuleType.NOT_LEFT: "Todos",
+            RuleType.EQUIV: "ERR",
+            RuleType.TWO_THEN: "solitos",
+        }
+    
     def buildTree(self, deduction):
         try:
             child = next(self.evaluateDeduction(deduction))
@@ -15,9 +37,9 @@ class DeductionTree:
             if child[0] == RuleType.AND_RIGHT or child[0] == RuleType.OR_LEFT:
                 return string + f', {self.buildTree(child[3])}]' + '}'
             return string + ']}'
-
         except StopIteration:
             return '{' + f'"deduction":"{deduction}", "children":[]' + '}'
+            
     def pipe(self, current, *iterables):
         for n in iterables:
             yield from n(current)
@@ -63,10 +85,11 @@ if __name__ == "__main__":
     z = Biconditional(p, a)
     qp = Then(q, p)
     c = Then(p, z)
-    ded = Deduction([np, qp], [npnq])
+    ded = Deduction([np, qp], [np,nq])
     DEDUCTION_TREE = DeductionTree()
-    print(DEDUCTION_TREE.stringRule(qp.kind))
-    """prueba_eval = DEDUCTION_TREE.evaluateDeduction(ded)
-    print(f"Original: {ded}")
-    print(f"Evaluado1: {next(prueba_eval)}")"""
+    
+    print(DEDUCTION_TREE.x(RuleType.AXIOM))
+    print(DEDUCTION_TREE.x(RuleType.OR_RIGHT))
+    print(DEDUCTION_TREE.x(RuleType.TWO_THEN))
+    #print(DEDUCTION_TREE.stringRule(qp.kind))
     print(DEDUCTION_TREE.buildTree(ded))

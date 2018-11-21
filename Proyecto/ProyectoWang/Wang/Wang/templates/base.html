@@ -100,11 +100,12 @@
         <script>
 
 			function btnShowTree(value, row, index){
-				var string = "<button type='button' id ='" + row.id + "' class='btn btn-sm btn-danger btn-block' onclick='showTree('');'>View</button>";
+				var string = "<button type='button' id ='" + row.id + "' class='btn btn-sm btn-danger btn-block' onclick='showTreeModal(" + row.respuesta + ");'>View</button>";
                 return string;
 			}
 			
-			function showTree(answer){
+			function showTreeModal(jsonObj){
+                console.log(jsonObj);
 				console.log('delia');
 			}
 			

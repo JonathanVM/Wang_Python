@@ -17,18 +17,19 @@ class PruebasSerializer(serializers.ModelSerializer):
         read_only_fields = ('respuesta',)
         
     def create(self, data):
-        print('Llega')
-        print(f">>>probador {data}")
         expre = data['expresion']
-        print(f">>>expresion {expre}")
-        result = deductionParser(expre)
-        print(result)
-        for i in range(len(result)):
-            arbolDeduction = DeductionTree()
-            salidaArbol = arbolDeduction.buildTree(result[i])
-            print(salidaArbol)
-            data['respuesta'] = salidaArbol
-        print(f"Posicion 0: {result[0]}")
-        return super().create(data)
+        try:
+            result = deductionParser(expre)
+            print(f"Posicion 0: {result[0]}")
+            for i in range(len(result)):
+                arbolDeduction = DeductionTree()
+                salidaArbol = arbolDeduction.buildTree(result[i])
+                print(salidaArbol)
+                data['respuesta'] = salidaArbol
+            return super().create(data)
+        except IndexError:
+            print('entro, expresion invalida')
+            data['respuesta'] = "Expresión invalida"
+            return super().create(data)
         
     

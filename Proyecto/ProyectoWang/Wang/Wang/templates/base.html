@@ -21,7 +21,15 @@
                     <form action="javascript:enviarPruebaLogica();">
                         <div class="p-3 mb-2 bg-light text-dark">
                             <label><b>Reglas lógicas y formato</b></label>
-                            <label></label>
+							<ul>
+								<li> AND LEFT <span class="text-danger"> "& =>" </span></li>
+								<li> AND RIGHT <span class="text-danger"> "=> &" </span></li>
+								<li> OR LEFT <span class="text-danger"> "| =>" </span></li>
+								<li> OR RIGHT <span class="text-danger"> "=> |" </span></li>
+								<li> EQUIVALENCIA <span class="text-danger">  "p->q" </span></li>
+								<li> BICONDITIONAL <span class="text-danger"> "<->" </span></li>
+								<li> TERMINAR LA EXPRESION CON UN <span class="text-danger"> "." </span></li>
+							</ul>
                         </div>
 						<label for="idExpresion">Digite la expresion:</label>
                         <div class="row">
@@ -41,7 +49,7 @@
 							<div style="border-left: 6px solid green;height: 500px;"></div>
 						</div>
 						<div class="col-md-11 mb-3">
-							<h5 class="text-center">Arbol de prueba</h5>
+							<h5 class="text-center">Árbol de prueba</h5>
 							<div class="text-center" id="divRespuesta">
 							
 							</div>
@@ -65,18 +73,14 @@
                 })
                         .then(function (response) {
                             datos = response.data.respuesta
-
-                            datosJSON = JSON.parse(datos)
-
-                            deduccion = datosJSON.deduction
-                            array = deduccion.split(" => ")
-
-                            izq = array[0].split(", ")
-
-                            der = "".split(", ")
-							
 							divR = document.getElementById("divRespuesta");
-							showTree(datosJSON, divR);
+							divR.className = "alert alert-danger";
+							try{
+								datosJSON = JSON.parse(datos)
+								showTree(datosJSON, divR);
+							}catch(except){
+								divR.innerHTML =  datos + ": " + response.data.expresion;
+							}
                         })
                         .catch(function (error) {
                             console.log(error);
@@ -87,6 +91,7 @@
                 viz.renderSVGElement('digraph T { node [shape=rectangle,color=black];' + buildStringTree(data) + '}')
                     .then(function (element) {
                             div.innerHTML = "";
+							div.className = "";
                             div.appendChild(element);
                         })
                         .catch(error => {

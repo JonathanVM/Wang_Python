@@ -5,8 +5,18 @@
     <head>
         <meta charset="utf-8">
         <title>Wang Tester</title>
+        
+        <script src="{% static 'jquery-3.3.1.js' %}"></script>
+        <script src="{% static 'jquery.dataTables.min.js' %}"></script>
+        <script src="{% static 'dataTables.bootstrap.min.js' %}"></script>
+        
         <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet" type="text/css">
         <link href="{% static 'favicon.png' %}" rel="shortcut icon">
+        
+        <link href="{% static 'dataTables.bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+        <link href="{% static 'bootstrap3.min.css' %}" rel="stylesheet" type="text/css">
+        
+        
     </head>
     <body>
         <header id="header">
@@ -51,6 +61,162 @@
 
                         </div>
                     </form>
+                                    
+                    <div >
+            
+       
+                        <table id="example" class="table table-striped table-bordered" style="width:100%">
+                            
+                            <br><br>
+                            <thead>
+                                <tr>
+                                    <th width="200 px"><center>Id</center></th>
+                                    <th width="200 px"><center>Expresion</center></th>
+                                    <th width="200 px"><center>ver</center></th>
+                                    
+                                </tr>
+                                
+                            </thead>
+                            <tbody id="info">
+                                <tr>
+                                <td>Airi Satou</td>
+                                <td>Accountant</td>
+                                <td>Tokyo</td>
+                                </tr>
+                                <tr>
+                                <td>Airi Satou</td>
+                                <td>Accountant</td>
+                                <td>Tokyo</td>
+                                </tr>
+                                <tr>
+                                <td>Airi Satou</td>
+                                <td>Accountant</td>
+                                <td>Tokyo</td>
+                                </tr>
+                                <tr>
+                                <td>Airi Satou</td>
+                                <td>Accountant</td>
+                                <td>Tokyo</td>
+                                </tr>
+                                <tr>
+                                <td>Airi Satou</td>
+                                <td>Accountant</td>
+                                <td>Tokyo</td>
+                                </tr>
+                                <tr>
+                                <td>Airi Satou</td>
+                                <td>Accountant</td>
+                                <td>Tokyo</td>
+                                </tr>
+                                <tr>
+                                <td>Airi Satou</td>
+                                <td>Accountant</td>
+                                <td>Tokyo</td>
+                                </tr>
+                                <tr>
+                                <td>Airi Satou</td>
+                                <td>Accountant</td>
+                                <td>Tokyo</td>
+                                </tr>
+                                <tr>
+                                <td>Airi Satou</td>
+                                <td>Accountant</td>
+                                <td>Tokyo</td>
+                                </tr>
+                                <tr>
+                                <td>Airi Satou</td>
+                                <td>Accountant</td>
+                                <td>Tokyo</td>
+                                </tr>
+                                <tr>
+                                <td>Airi Satou</td>
+                                <td>Accountant</td>
+                                <td>Tokyo</td>
+                                </tr>
+                                <tr>
+                                <td>Airi Satou</td>
+                                <td>Accountant</td>
+                                <td>Tokyo</td>
+                                </tr>
+                                <tr>
+                                <td>Airi Satou</td>
+                                <td>Accountant</td>
+                                <td>Tokyo</td>
+                                </tr>
+                                <tr>
+                                <td>Airi Satou</td>
+                                <td>Accountant</td>
+                                <td>Tokyo</td>
+                                </tr>
+                                <tr>
+                                <td>Airi Satou</td>
+                                <td>Accountant</td>
+                                <td>Tokyo</td>
+                                </tr>
+                                <tr>
+                                <td>Airi Satou</td>
+                                <td>Accountant</td>
+                                <td>Tokyo</td>
+                                </tr>
+                                <tr>
+                                <td>Airi Satou</td>
+                                <td>Accountant</td>
+                                <td>Tokyo</td>
+                                </tr>
+                                <tr>
+                                <td>Airi Satou</td>
+                                <td>Accountant</td>
+                                <td>Tokyo</td>
+                                </tr>
+                                <tr>
+                                <td>Airi Satou</td>
+                                <td>Accountant</td>
+                                <td>Tokyo</td>
+                                </tr>
+                                <tr>
+                                <td>Airi Satou</td>
+                                <td>Accountant</td>
+                                <td>Tokyo</td>
+                                </tr>
+                                <tr>
+                                <td>Airi Satou</td>
+                                <td>Accountant</td>
+                                <td>Tokyo</td>
+                                </tr>
+                                <tr>
+                                <td>Airi Satou</td>
+                                <td>Accountant</td>
+                                <td>Tokyo</td>
+                                </tr>
+                                <tr>
+                                <td>Erick Satou</td>
+                                <td>Accountant</td>
+                                <td>Tokyo</td>
+                                </tr>
+                                <tr>
+                                <td>Airi Satou</td>
+                                <td>Accountant</td>
+                                <td>Tokyo</td>
+                                </tr>
+                                <tr>
+                                <td>Airi Satou</td>
+                                <td>Accountant</td>
+                                <td>Tokyo</td>
+                                </tr>
+                                
+                               
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th><center>Id</center></th>
+                                    <th><center>Expresion</center></th>
+                                    <th><center>ver</center></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                                    
+                                       
                 </div>
                 <div class="col-md-6 mb-3">
 					<div class="row">
@@ -71,7 +237,12 @@
         <script src="{% static 'axios.min.js'%}"></script>
         <script src="{% static 'viz.js' %}"></script>
         <script src="{% static 'full.render.js' %}"></script>
+        
         <script>
+            $(document).ready(function() {
+                $('#example').DataTable();
+            });
+        
             var axiomNumber = 1;
             var errorNumber = 1;
             function enviarPruebaLogica() {

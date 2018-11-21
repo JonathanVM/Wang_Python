@@ -20,7 +20,7 @@
             <hr class="mb-4">
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    <form action="javascript:enviarPruebaLogica();">
+                    <form action="javascript:sendLogicalTest();">
                         <div class="p-3 mb-2 bg-light text-dark">
                             <label><b>Logical Rules and Format</b></label>
 							<ul>
@@ -45,7 +45,7 @@
 						<label for="idExpresion">Expression:</label>
                         <div class="row">
                             <div class="col-md-9 mb-3">
-                                <input type="text" class="form-control" id="idExpresion" maxlength="50" autocomplete="off" required>
+                                <input type="text" class="form-control" id="idExpression" maxlength="50" autocomplete="off" required>
                             </div>
                             <div class="col-md-3 mb-3">
                                 <input type="submit" class="btn btn-success" value="Test">
@@ -79,7 +79,7 @@
 						</div>
 						<div class="col-md-11 mb-3">
 							<h5 class="text-center">Test tree</h5>
-							<div class="text-center" id="divRespuesta">
+							<div class="text-center" id="divAnswer">
 							
 							</div>
 						</div>
@@ -104,7 +104,7 @@
                 return string;
 			}
 			
-			function TreeSee(respuesta){
+			function TreeSee(answer){
 				console.log('delia');
 			}
 			
@@ -124,14 +124,14 @@
             }
             var axiomNumber = 1;
             var errorNumber = 1;
-            function enviarPruebaLogica() {
-                prueba = document.getElementById("idExpresion").value;
+            function sendLogicalTest() {
+                let test = document.getElementById("idExpression").value;
                 axios.post('http://localhost:8000/requestAPI/', {
-                    "expresion": prueba
+                    "expresion": test
                 })
                         .then(function (response) {
                             datos = response.data.respuesta
-							divR = document.getElementById("divRespuesta");
+							divR = document.getElementById("divAnswer");
 							divR.className = "alert alert-danger";
 							try{
 								datosJSON = JSON.parse(datos)

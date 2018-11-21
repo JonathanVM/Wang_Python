@@ -46,8 +46,6 @@ class Axiom(Rule):
                 if q == p:
                     yield (self.kind, pi, pd, deduction)
 
-        
-
 AXIOM_RULE = Axiom()
 
 class NotLeft(Rule):

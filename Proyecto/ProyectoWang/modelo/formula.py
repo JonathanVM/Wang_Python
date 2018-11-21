@@ -30,7 +30,7 @@ class Operator:
 OR = Operator("|", arity=2, preced=4)
 AND = Operator("&", arity=2, preced=8)
 THEN = Operator("->", arity=2, preced=2)
-BICONDITIONAL = Operator("<->", arity=2, preced=3)
+BICONDITIONAL = Operator("<=>", arity=2, preced=3)
 NOT = Operator("~", arity=1, preced=16)
 
 
@@ -77,6 +77,7 @@ class Atom(Operator, Formula):
         self.oper = self
     def atoms(self):
         yield self
+    
         
 TRUE = Atom("true")
 FALSE = Atom("false")

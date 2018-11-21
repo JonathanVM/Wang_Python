@@ -22,7 +22,7 @@ listexpr: expr (',' expr)*   # SeqExpr
 expr:   '~' expr              # NotExpr
     |   expr op='&' expr      # AndExpr
     |   expr op='|' expr      # OrExpr
-	|   expr op='<->' expr    # BiconditionalExpr
+	|   expr op='<=>' expr    # BiconditionalExpr
     | <assoc=right>  
       expr op='->' expr       # ImplyExpr
     |   ID                    # Id
@@ -41,7 +41,7 @@ AND : '&'
 ; 
 OR :  '|' 
 ;
-BICONDITIONAL : '<->'
+BICONDITIONAL : '<=>'
 ;
 IMPLIES: '->'
 ;

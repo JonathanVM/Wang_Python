@@ -4,40 +4,49 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Probador Wang</title>
+        <title>Wang Tester</title>
         <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet" type="text/css">
         <link href="{% static 'favicon.png' %}" rel="shortcut icon">
     </head>
     <body>
         <header id="header">
-            <img style="width: 100%; height:100px;" src="{% static 'Logo2.png' %}" alt=""/>
+            <img style="width: 100%; height:80px;" src="{% static 'Logo3.png' %}" alt=""/>
         </header>
         <div class="container">
             <br>
-            <h1>Bienvenido, Probador Lógico Wang</h1>
+            <h1>Welcome to a logical tester</h1>
             <hr class="mb-4">
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <form action="javascript:enviarPruebaLogica();">
                         <div class="p-3 mb-2 bg-light text-dark">
-                            <label><b>Reglas lógicas y formato</b></label>
+                            <label><b>Logical Rules and Format</b></label>
 							<ul>
+								<li> AXIOM <span class="text-danger"> "p => p" </span></li>
 								<li> AND LEFT <span class="text-danger"> "& =>" </span></li>
+								<li> OR RIGHT <span class="text-danger"> "=> |" </span></li>
+								<li> EQUIV <span class="text-danger">  "p->q" </span></li>
+								<li> BICONDITIONAL <span class="text-danger"> "<->" </span></li>
 								<li> AND RIGHT <span class="text-danger"> "=> &" </span></li>
 								<li> OR LEFT <span class="text-danger"> "| =>" </span></li>
-								<li> OR RIGHT <span class="text-danger"> "=> |" </span></li>
-								<li> EQUIVALENCIA <span class="text-danger">  "p->q" </span></li>
-								<li> BICONDITIONAL <span class="text-danger"> "<->" </span></li>
-								<li> TERMINAR LA EXPRESION CON UN <span class="text-danger"> "." </span></li>
+								<li> NOT LEFT <span class="text-danger"> "-p =>" </span></li>
+								<li> NOT RIGHT <span class="text-danger"> " => -p" </span></li>
+								<li> END THE EXPRESSION WITH A <span class="text-danger"> "." </span></li>
+								<li> EXAMPLES:
+									<ul>
+										<li>p1 -> p => (q & r), p. <span class="text-success"> RIGHT </span></li>
+										<li>p1 -> q => (<span class="text-danger">1</span> & <span class="text-danger">2</span>), <span class="text-danger">Q</span>. <span class="text-danger"> WRONG </span></li>
+									</ul>
+								</li>
 							</ul>
                         </div>
-						<label for="idExpresion">Digite la expresion:</label>
+						<label for="idExpresion">Expression:</label>
                         <div class="row">
                             <div class="col-md-9 mb-3">
                                 <input type="text" class="form-control" id="idExpresion" maxlength="50" autocomplete="off" required>
                             </div>
                             <div class="col-md-3 mb-3">
-                                <input type="submit" class="btn btn-success" value="Enviar">
+                                <input type="submit" class="btn btn-success" value="Test">
                             </div>
 
                         </div>
@@ -46,10 +55,10 @@
                 <div class="col-md-6 mb-3">
 					<div class="row">
 						<div class="col-md-1 mb-3">
-							<div style="border-left: 6px solid green;height: 500px;"></div>
+							<div style="border-left: 6px solid green;height: 100%; min-height:500px;"></div>
 						</div>
 						<div class="col-md-11 mb-3">
-							<h5 class="text-center">Árbol de prueba</h5>
+							<h5 class="text-center">Test tree</h5>
 							<div class="text-center" id="divRespuesta">
 							
 							</div>
@@ -110,8 +119,8 @@
                     return axiomNode + '"' + data.deduction + '"->"' + axiomNumber++ +'. AXIOM: ' + left[data.posLeft] + '";';  
                 }
                 else if(data.children.length === 0){
-                    let notProvenNode = '"' + errorNumber + '. NOT PROVEN: ' + data.deduction + '"[shape=octagon, color=red];';
-                    return notProvenNode + '"' + data.deduction + '"->"' + errorNumber++ +'. NOT PROVEN: ' + data.deduction + '";'; 
+                    let notProvenNode = '"' + errorNumber + '. NOT PROVEN"[shape=doubleoctagon, color=red];';
+                    return notProvenNode + '"' + data.deduction + '"->"' + errorNumber++ +'. NOT PROVEN";'; 
                 } else {
                     for(let child of data.children){
                         if(data.RuleType === "EQUIV" || data.RuleType === "BICONDITIONAL"){

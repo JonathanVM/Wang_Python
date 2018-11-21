@@ -46,7 +46,7 @@ class WangParser ( Parser ):
     sharedContextCache = PredictionContextCache()
 
     literalNames = [ "<INVALID>", "'('", "')'", "','", "'.'", "'=>'", "'~'", 
-                     "'&'", "'|'", "'<->'", "'->'" ]
+                     "'&'", "'|'", "'<=>'", "'->'" ]
 
     symbolicNames = [ "<INVALID>", "<INVALID>", "<INVALID>", "COMMA", "DOT", 
                       "LEADSTO", "NOT", "AND", "OR", "BICONDITIONAL", "IMPLIES", 

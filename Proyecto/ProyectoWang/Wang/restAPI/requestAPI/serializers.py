@@ -31,5 +31,9 @@ class PruebasSerializer(serializers.ModelSerializer):
             print('entro, expresion invalida')
             data['respuesta'] = "Expresión invalida"
             return super().create(data)
+        except SystemExit:
+            print('entro, expresion invalida')
+            data['respuesta'] = "Expresión invalida"
+            return super().create(data)
         
     

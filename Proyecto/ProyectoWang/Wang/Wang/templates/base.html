@@ -63,8 +63,8 @@
 								<thead>
 									<tr>
 										<th scope="col" data-field="id" data-width="10%"><center>#</center></th>
-										<th scope="col" data-field="expresion" data-width="60%"><center>Expression</center></th>
-										<th scope="col" data-formatter="treeInfo2" data-width="30%"><center>Prueba</center></th>
+										<th scope="col" data-field="expresion" data-width="70%"><center>Expression</center></th>
+										<th scope="col" data-formatter="treeInfo2" data-width="20%"><center>Test</center></th>
 									</tr>
 								</thead>
 							</table>
@@ -99,11 +99,11 @@
         <script>
 
 			function treeInfo2(value, row, index){
-				var string = "<button type='button' id ='" + row.id + "' class='btn btn-sm btn-danger btn-block' onclick='mostrarArbol('');'>Ver</button>";
+				var string = "<button type='button' id ='" + row.id + "' class='btn btn-sm btn-danger btn-block' onclick='TreeSee('');'>See</button>";
                 return string;
 			}
 			
-			function mostrarArbol(respuesta){
+			function TreeSee(respuesta){
 				console.log('delia');
 			}
 			

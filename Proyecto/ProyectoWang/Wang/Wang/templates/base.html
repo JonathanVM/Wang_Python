@@ -6,22 +6,11 @@
         <meta charset="utf-8">
         <title>Wang Tester</title>
         <link href="{% static 'favicon.png' %}" rel="shortcut icon">
-        <!--<script src="{% static 'jquery-3.3.1.js' %}"></script>
-        <script src="{% static 'jquery.dataTables.min.js' %}"></script>
-        <script src="{% static 'dataTables.bootstrap.min.js' %}"></script>-->
-        
-        <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet" type="text/css">
-        
-        
-        <!--<link href="{% static 'dataTables.bootstrap.min.css' %}" rel="stylesheet" type="text/css">
-        <link href="{% static 'bootstrap3.min.css' %}" rel="stylesheet" type="text/css">-->
-        
-        
         <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
         <link href="{% static 'css/bootstrap-table.min.css' %}" rel="stylesheet"  type="text/css">
         
     </head>
-    <body onload="getproofs()">
+    <body onload="getproofs();">
         <header id="header">
             <img style="width: 100%; height:80px;" src="{% static 'Logo3.png' %}" alt=""/>
         </header>
@@ -65,18 +54,18 @@
                         </div>
                     </form>
 					<hr class="m4">
-                    <div>
+					<button type="button" class="btn btn-lg btn-block btn-outline-success" onclick="seeTable();">See previous tests</button>
+                    <div style="display:None;" id="divTable">
                         <table id="tblData" data-toggle="table" data-pagination="true" data-search="true" searchOnEnterKey="true" sortStable="true" data-height="428" data-page-size="10" data-page-list="[5, 10, 25, 50, 100]" data-striped="true">
                             <thead>
                                 <tr>
                                     <th scope="col" data-field="id" data-width="10%"><center>#</center></th>
                                     <th scope="col" data-field="expresion" data-width="60%"><center>Expression</center></th>
-                                    <th scope="col" data-formatter="treeInfo" data-width="30%"><center>See test</center></th>
+									<th scope="col" data-formatter="treeInfo2" data-width="30%"><center>Prueba</center></th>
                                 </tr>
                             </thead>
                         </table>
                     </div>
-                                       
                 </div>
                 <div class="col-md-6 mb-3">
 					<div class="row">
@@ -104,34 +93,22 @@
         <script src="{% static 'full.render.js' %}"></script>
         
         <script>
-            
-            function cargarTabla(){
-                data = [{"id":0, "expression":"abc", "otrasInfoNoimporta": 3}, 
-                {"id":1, "expression":"abc", "otrasInfoNoimporta": 3, "respuesta": "eljson"}, 
-                {"id":2, "expression":"abc", "otrasInfoNoimporta": 3, "respuesta": "eljson"},
-                {"id":3, "expression":"abc", "otrasInfoNoimporta": 3, "respuesta": "eljson"},
-                {"id":4, "expression":"erick", "otrasInfoNoimporta": 3, "respuesta": "eljson"},
-                {"id":5, "expression":"abc", "otrasInfoNoimporta": 3, "respuesta": "eljson"},
-                {"id":6, "expression":"abc", "otrasInfoNoimporta": 3, "respuesta": "funciona"},
-                {"id":7, "expression":"abc", "otrasInfoNoimporta": 3, "respuesta": "eljson"},
-                {"id":8, "expression":"abc", "otrasInfoNoimporta": 3, "respuesta": "eljson"},
-                {"id":9, "expression":"jonathan", "otrasInfoNoimporta": 3, "respuesta": "eljson"},
-                {"id":10, "expression":"abc", "otrasInfoNoimporta": 3, "respuesta": "eljson"},
-                {"id":11, "expression":"abc", "otrasInfoNoimporta": 3, "respuesta": "eljson"},
-                {"id":12, "expression":"abc", "otrasInfoNoimporta": 3, "respuesta": "eljson"},
-                {"id":13, "expression":"abc", "otrasInfoNoimporta": 3, "respuesta": "eljson"},
-                {"id":14, "expression":"abc", "otrasInfoNoimporta": 3, "respuesta": "eljson"},
-                {"id":15, "expression":"abc", "otrasInfoNoimporta": 3, "respuesta": "genial"},
-                {"id":16, "expression":"delia", "otrasInfoNoimporta": 3, "respuesta": "eljson"}]
-                console.log("yo soy rn undifien" + getproofs());
-                $('#tblData').bootstrapTable('load', data);
-            }
+            function seeTable(){
+				document.getElementById('divTable').style.display = "" ;
+			}
+
+			function treeInfo2(value, row, index){
+				var string = "<button type='button' id ='" + row.id + "' class='btn btn-lg btn-block btn-outline-success' onclick='mostrarArbol('');'>Ver</button>";
+                return string;
+			}
 			
+			function mostrarArbol(respuesta){
+				console.log('delia');
+			}
 			
 			function getproofs(){
 				axios.get('http://localhost:8000/requestAPI/all/')
 				.then(function (response) {
-					console.log(response.data);
 					$('#tblData').bootstrapTable('load', response.data);
 				})
 				.catch(function (error) {

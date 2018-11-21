@@ -13,30 +13,44 @@ class DeductionTree:
     def __init__(self):
         pass
         
-    def x(self, key):
-        options = {
-            RuleType.AXIOM: "AXIOMMMMMM",
-            RuleType.AND_RIGHT: "AND",
-            RuleType.OR_LEFT: "split",
-            RuleType.AND_LEFT: "AND",
-            RuleType.OR_RIGHT: "ERER", 
-            RuleType.NOT_RIGHT: "ER",
-            RuleType.NOT_LEFT: "Todos",
-            RuleType.EQUIV: "ERR",
-            RuleType.TWO_THEN: "solitos",
-        }
-    
+    def toJsonString(self, child, deduction):
+        print(f'toJsonString AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA: {child[0]}')
+        return {
+            RuleType.AXIOM: self.axiomJsonString(child, deduction),
+            RuleType.EQUIV: self.equiv_IffJsonString(child, deduction),
+            RuleType.TWO_THEN: self.equiv_IffJsonString(child, deduction),
+            RuleType.AND_RIGHT: self.otherRules(child, deduction),
+            RuleType.OR_LEFT: self.otherRules(child, deduction),
+            RuleType.AND_LEFT: self.otherRules(child, deduction),
+            RuleType.OR_RIGHT: self.otherRules(child, deduction),
+            RuleType.NOT_RIGHT: self.otherRules(child, deduction),
+            RuleType.NOT_LEFT: self.otherRules(child, deduction),
+
+        }[child[0]]
+    def axiomJsonString(self, child, deduction):
+        return '{' + f'"RuleType":"{self.stringRule(child[0])}", "posLeft":{child[1]}, "posRight":{child[2]}, "deduction":"{deduction}"' + '}'
+
+    def equiv_IffJsonString(self, child, deduction):
+        print(f'equiv BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB: {child[0]}')
+        return '{' + f'"RuleType":"{self.stringRule(child[0])}", "posLeft":{child[1]}, "posRight":{child[2]}, "deduction":"{deduction}", "children":[{self.buildTree(child[3])}' + ']}'
+
+    def otherRules(self, child, deduction):
+        print(f'other CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC: {child[0]}')
+        print(f'other ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd: {child[2]}')
+        string = '{' + f'"RuleType":"{self.stringRule(child[0])}", "pos":{child[1]}, "deduction":"{deduction}", "children":[{self.buildTree(child[2])}'
+        return string + (f', {self.buildTree(child[3])}]' + '}' if child[0] == RuleType.AND_RIGHT or child[0] == RuleType.OR_LEFT else ']}')
     def buildTree(self, deduction):
         try:
             child = next(self.evaluateDeduction(deduction))
-            if child[0] == RuleType.AXIOM:
+            return self.toJsonString(child, deduction)
+            """if child[0] == RuleType.AXIOM:
                 return '{' + f'"RuleType":"{self.stringRule(child[0])}", "posLeft":{child[1]}, "posRight":{child[2]}, "deduction":"{deduction}"' + '}'
             if child[0] == RuleType.EQUIV or child[0] == RuleType.TWO_THEN:
                 return '{' + f'"RuleType":"{self.stringRule(child[0])}", "posLeft":{child[1]}, "posRight":{child[2]}, "deduction":"{deduction}", "children":[{self.buildTree(child[3])}' + ']}'
             string = '{' + f'"RuleType":"{self.stringRule(child[0])}", "pos":{child[1]}, "deduction":"{deduction}", "children":[{self.buildTree(child[2])}'
             if child[0] == RuleType.AND_RIGHT or child[0] == RuleType.OR_LEFT:
                 return string + f', {self.buildTree(child[3])}]' + '}'
-            return string + ']}'
+            return string + ']}'"""
         except StopIteration:
             return '{' + f'"deduction":"{deduction}", "children":[]' + '}'
             

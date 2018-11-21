@@ -54,19 +54,23 @@
                         </div>
                     </form>
 					<hr class="m4">
-					<button type="button" class="btn btn-lg btn-block btn-outline-success" onclick="seeTable();">See previous tests</button>
-                    <div style="display:None;" id="divTable">
-                        <table id="tblData" data-toggle="table" data-pagination="true" data-search="true" searchOnEnterKey="true" sortStable="true" data-height="428" data-page-size="10" data-page-list="[5, 10, 25, 50, 100]" data-striped="true">
-                            <thead>
-                                <tr>
-                                    <th scope="col" data-field="id" data-width="10%"><center>#</center></th>
-                                    <th scope="col" data-field="expresion" data-width="60%"><center>Expression</center></th>
-									<th scope="col" data-formatter="treeInfo2" data-width="30%"><center>Prueba</center></th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
-                </div>
+					<button class="btn btn-default btn-outline-success"  type="button" data-toggle="collapse" data-target="#areaTree" aria-expanded="false" aria-controls="areaTree">
+                        See previous tests
+                    </button>
+                    <div class="collapse" id="areaTree">
+						<div id="divTable">
+							<table id="tblData" data-toggle="table" data-pagination="true" data-search="true" searchOnEnterKey="true" sortStable="true" data-height="450" data-page-size="10" data-page-list="[5, 10, 25, 50, 100]" data-striped="true">
+								<thead>
+									<tr>
+										<th scope="col" data-field="id" data-width="10%"><center>#</center></th>
+										<th scope="col" data-field="expresion" data-width="60%"><center>Expression</center></th>
+										<th scope="col" data-formatter="treeInfo2" data-width="30%"><center>Prueba</center></th>
+									</tr>
+								</thead>
+							</table>
+						</div>
+					</div>
+				</div>
                 <div class="col-md-6 mb-3">
 					<div class="row">
 						<div class="col-md-1 mb-3">
@@ -93,12 +97,6 @@
         <script src="{% static 'full.render.js' %}"></script>
         
         <script>
-			let estado = false;
-            function seeTable(){
-				let div = document.getElementById('divTable');
-				estado = !estado;
-				(estado)? div.style.display = "" : div.style.display = "none";
-			}
 
 			function treeInfo2(value, row, index){
 				var string = "<button type='button' id ='" + row.id + "' class='btn btn-lg btn-block btn-outline-success' onclick='mostrarArbol('');'>Ver</button>";

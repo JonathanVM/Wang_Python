@@ -1,0 +1,13 @@
+REQUERIMIENTOS PARA CORRER DESDE CONSOLA:
+
+INSTALAR HERRAMIENTAS:
+
+1. django: pip install django
+2. antlr4-python3-runtime: pip install antlr4-python3-runtime
+3. djangorestframework: pip install djangorestframework
+4. django-cors-headers: pip install django-cors-headers
+
+PASOS PARA ENTRAR EN EL PROYECTO:
+
+1. ENTRAR DESDE EL CMD A LA CARPETA WANG_PYTHON
+2. INSTALAR LAS HERRAMIENTAS MENCIONADAS ANTERIORMENTE.

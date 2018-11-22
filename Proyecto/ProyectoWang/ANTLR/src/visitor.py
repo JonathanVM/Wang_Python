@@ -1,5 +1,11 @@
 __author__ = 'jszheng'
 __coauthor__ = 'loriacarlos@gmail.com'
+'''
+    coautores:
+        Delia Hernandez Ruiz
+        Jonathan Vasquez Mora
+        Erick Hernandez Camacho
+'''
 
 import sys
 sys.path.insert(0, '..\ANTLR\parser\grammar')

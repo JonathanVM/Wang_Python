@@ -1,3 +1,10 @@
+"""
+coautores:
+    Jonathan Vasquez Mora
+    Delia Hernandez Ruiz
+    Erick Hernandez Camacho
+"""
+
 from itertools import *
 
 def replace(iter, pos, formulas):

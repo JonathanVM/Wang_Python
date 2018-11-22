@@ -1,3 +1,11 @@
+'''
+autores:
+    Delia Hernandez Ruiz
+    Jonathan Vasquez Mora
+    Erick Hernandez Camacho
+'''
+
+
 from rest_framework import serializers
 from .models import Pruebas
 

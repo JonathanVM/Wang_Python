@@ -1,3 +1,11 @@
+'''
+autores:
+    Delia Hernandez Ruiz
+    Jonathan Vasquez Mora
+    Erick Hernandez Camacho
+'''
+
+
 from django.db import models
 
 # Create your models here.

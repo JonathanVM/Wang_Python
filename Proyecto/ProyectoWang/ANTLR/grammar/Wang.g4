@@ -1,6 +1,10 @@
 /*
 @author loriacarlos@gmail.com
 @since II-2018
+coautores:
+	Delia Hernandez Ruiz
+	Jonathan Vasquez Mora
+	Erick Hernandez Camacho
 */
 grammar Wang;
 

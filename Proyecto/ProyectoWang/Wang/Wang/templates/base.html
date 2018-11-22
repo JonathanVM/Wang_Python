@@ -1,5 +1,12 @@
 {% load static %}
 
+<!-- 
+Autores: 
+	Delia Hernandez Ruiz
+	Jonathan Vasquez Mora
+	Erick Hernandez Camacho
+--->
+
 <!doctype html>
 <html>
     <head>
@@ -9,7 +16,7 @@
         <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
         <link href="{% static 'css/bootstrap-table.min.css' %}" rel="stylesheet"  type="text/css">
         <style>
-			@media screen and (max-width: 768px) {
+			@media screen and (max-width: 767px) {
 				#line {
 					display: none;
 				}
@@ -103,9 +110,9 @@
         <script src="{% static 'js/bootstrap.min.js' %}"></script>
         <script src="{% static 'js/bootstrap-table.min.js' %}"></script>
         <script src="{% static 'js/bootstrap-table-en-US.js' %}"></script>
-        <script src="{% static 'axios.min.js'%}"></script>
-        <script src="{% static 'viz.js' %}"></script>
-        <script src="{% static 'full.render.js' %}"></script>
+        <script src="{% static 'js/axios.min.js'%}"></script>
+        <script src="{% static 'js/viz.js' %}"></script>
+        <script src="{% static 'js/full.render.js' %}"></script>
         
         <script>
 
@@ -140,9 +147,10 @@
 							divR.className = "alert alert-danger";
 							try{
 								getproofs();
-								showTree(JSON.parse(response.data.respuesta), divR);
+								datos = JSON.parse(response.data.respuesta);
+								showTree(datos, divR);
 							}catch(except){
-								divR.innerHTML =  datos + ": " + response.data.expresion;
+								divR.innerHTML =  response.data.respuesta + ": " + response.data.expresion;
 							}
                         })
                         .catch(function (error) {
@@ -167,29 +175,27 @@
                 let ded = data.deduction.split(" => ");
                 let left = ded[0].split(", ");
                 let right = ded[1].split(", ");
-                if(data.children && data.children.length === 0){
+                let string = '';
+                if(data.RuleType === "AXIOM"){
+                    let axiomNode = '"' + axiomNumber + '. AXIOM: ' + left[data.posLeft] + '"[shape=tripleoctagon, color=green];';
+                    return axiomNode + '"' + data.deduction + '"->"' + axiomNumber++ +'. AXIOM: ' + left[data.posLeft] + '";';  
+                }
+                else if(data.children.length === 0){
                     let notProvenNode = '"' + errorNumber + '. NOT PROVEN"[shape=doubleoctagon, color=red];';
                     return notProvenNode + '"' + data.deduction + '"->"' + errorNumber++ +'. NOT PROVEN";'; 
                 }
-                switch(data.RuleType){
-                    case "AXIOM":
-                        let axiomNode = '"' + axiomNumber + '. AXIOM: ' + left[data.posLeft] + '"[shape=tripleoctagon, color=green];';
-                        return axiomNode + '"' + data.deduction + '"->"' + axiomNumber++ +'. AXIOM: ' + left[data.posLeft] + '";';
-                    case "AND RIGHT":
-                    case "OR LEFT":
-                        let changes1 = (isLeft(data.RuleType)? left[data.pos] : right[data.pos]);
-                        return newRelation(data, 0, changes1) + buildStringTree(data.children[0]) + newRelation(data, 1, changes1) + buildStringTree(data.children[1]);
-                    case "EQUIV":
-                    case "BICONDITIONAL":
-                        let changes2 = (data.posLeft !== -1 ? left[data.posLeft] : right[data.posRight]);
-                        return newRelation(data, 0, changes2) + buildStringTree(data.children[0]);
-                    default:
-                        let changes = (isLeft(data.RuleType)? left[data.pos] : right[data.pos]);
-                        return newRelation(data, 0, changes) + buildStringTree(data.children[0]);   
-                }
-            }
-            function newRelation(data, childPos, changes){
-                return '"' + data.deduction + '"->"' + data.children[childPos].deduction + '"[label="   ' + data.RuleType + ': ' + changes + '"];';
+				for(let child of data.children){
+					if(data.RuleType === "EQUIV" || data.RuleType === "BICONDITIONAL"){
+						let changes = (data.posLeft !== -1 ? left[data.posLeft] : right[data.posRight]);
+						string += '"' + data.deduction + '"->"' + child.deduction + '"[label="   ' + data.RuleType + ': ' + changes + '"];';
+						string += buildStringTree(child);
+					} else {
+						let changes = (isLeft(data.RuleType)? left[data.pos] : right[data.pos]);  
+						string += '"' + data.deduction + '"->"' + child.deduction + '"[label="   ' + data.RuleType + ': ' + changes + '"];';
+						string += buildStringTree(child);
+					}
+				}
+                return string;  
             }
 			
             function isLeft(rule) {

@@ -2,6 +2,13 @@ from django.contrib import admin
 
 # Register your models here.
 
+'''
+autores:
+    Delia Hernandez Ruiz
+    Jonathan Vasquez Mora
+    Erick Hernandez Camacho
+'''
+
 from .models import Page
 
 class PageAdmin(admin.ModelAdmin):

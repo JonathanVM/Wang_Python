@@ -1,3 +1,9 @@
+'''
+autores:
+    Delia Hernandez Ruiz
+    Jonathan Vasquez Mora
+    Erick Hernandez Camacho
+'''
 
 from django.urls import path
 from .views import PruebasAPIView, PruebasAPIDetail, PruebasAPIAllView

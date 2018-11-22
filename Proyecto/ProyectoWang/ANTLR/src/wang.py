@@ -8,6 +8,13 @@
 __author__ = 'jszheng'
 __coauthor__ = 'loriacarlos@gmail.com'
 
+'''
+    coautores:
+        Delia Hernandez Ruiz
+        Jonathan Vasquez Mora
+        Erick Hernandez Camacho
+'''
+
 import sys
 from antlr4 import *
 from antlr4.error.ErrorListener import ErrorListener, ConsoleErrorListener

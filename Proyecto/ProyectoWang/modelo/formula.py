@@ -4,6 +4,13 @@ Formulas logicas
 loriacarlos@gmail.com
 @since II-2018
 """
+"""
+coautores:
+    Delia Hernandez Ruiz
+    Jonathan Vasquez Mora
+    Erick Hernandez Camacho
+"""
+
 from functools import total_ordering
 
 @total_ordering
